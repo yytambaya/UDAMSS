@@ -14,5 +14,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $page_name = 'analytics';
+    return view('annoucements', compact('page_name'));
 });
