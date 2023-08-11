@@ -18,11 +18,17 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'usertype',
+        'first_name',
+        'last_name',
+        'middle_name',
         'email',
+        'phone',
+        'other_phone',
+        'state',
         'password',
     ];
-
+    
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -32,7 +38,7 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
-
+    
     /**
      * The attributes that should be cast.
      *
@@ -42,4 +48,22 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    
+    /**
+     * Get the user as a lecturer.
+     *
+     */
+    public function lecturer(): HasOne
+    {
+        return $this->hasOne(Lecturer::class);
+    }
+    
+    /**
+     * Get the user as a student.
+     *
+     */
+    public function student(): HasOne
+    {
+        return $this->hasOne(Student::class);
+    }
 }
