@@ -10,6 +10,19 @@ class Lecturer extends Model
     use HasFactory;
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'user_id',
+        'staff_id',
+        'title',
+        'role',
+        'rank',
+    ];
+
+    /**
      * Get the lecturer as a user.
      *
      */
