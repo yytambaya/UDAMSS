@@ -10,6 +10,17 @@ class Student extends Model
     use HasFactory;
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'user_id',
+        'regno',
+        'level',
+    ];
+
+    /**
      * Get the student as a user.
      *
      */
