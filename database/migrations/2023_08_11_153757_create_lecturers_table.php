@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('user_id')->unique();
             $table->string('staff_id')->unique();
             $table->string('title')->unique();
-            $table->string('role');
             $table->string('rank');
             $table->timestamps();
         });
