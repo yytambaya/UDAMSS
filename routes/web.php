@@ -17,3 +17,9 @@ Route::get('/', function () {
     $page_name = 'analytics';
     return view('annoucements', compact('page_name'));
 });
+
+Auth::routes([
+    'register' => false,
+]);
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

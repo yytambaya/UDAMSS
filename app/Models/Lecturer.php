@@ -18,7 +18,6 @@ class Lecturer extends Model
         'user_id',
         'staff_id',
         'title',
-        'role',
         'rank',
     ];
 
