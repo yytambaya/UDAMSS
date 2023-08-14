@@ -18,6 +18,8 @@ Route::get('/', function () {
     return view('annoucements', compact('page_name'));
 });
 
-Auth::routes();
+Auth::routes([
+    'register' => false,
+]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
