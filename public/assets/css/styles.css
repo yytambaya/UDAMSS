@@ -1,0 +1,34 @@
+.fixed-access-bar {
+    position: fixed;
+    right: 0;
+}
+/* mobile */
+@media (max-width: 770px) {
+    .lg-access-bar {
+      display: none; 
+    }
+    .sm-access-bar {
+      display: block; 
+    }
+}
+/* desktop */
+@media (min-width: 770px) {
+    .lg-access-bar {
+      display: block;
+    }
+    .sm-access-bar {
+      display: none; 
+    }
+    .annoucements-cards {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    .notice-boards td a{
+        width: 100%;
+    }
+    .lg-access-bar .widget-content .mt-container {
+        height: max-content;
+    }
+}

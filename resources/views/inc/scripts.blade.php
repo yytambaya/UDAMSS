@@ -15,9 +15,13 @@
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
     @switch( $page_name )
     
-        @case( 'analytics' )
+        @case( 'annoucements' )
             <script src="{{ asset('plugins/apex/apexcharts.min.js') }}"></script>
             <script src="{{ asset('assets/js/dashboard/dash_1.js') }}"></script>
+            <script src="{{ asset('assets/js/scrollspyNav.js') }}"></script>
+            <script src="{{ asset('plugins/highlight/highlight.pack.js') }}"></script>
+            <script src="{{ asset('plugins/editors/quill/quill.js') }}"></script>
+            <script src="{{ asset('plugins/editors/quill/custom-quill.js') }}"></script>
             @break
 
     @endswitch
