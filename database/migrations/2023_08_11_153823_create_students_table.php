@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
-            $table->string('user_id')->unique();
+            $table->integer('user_id')->unique();
             $table->string('regno')->unique();
             $table->enum('level', ['1','2','3','4']);
             $table->timestamps();

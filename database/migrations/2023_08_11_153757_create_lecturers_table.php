@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('lecturers', function (Blueprint $table) {
             $table->id();
-            $table->string('user_id')->unique();
+            $table->integer('user_id')->unique();
             $table->string('staff_id')->unique();
-            $table->string('title')->unique();
-            $table->string('rank');
+            $table->string('title');
+            $table->string('rank')->nullable();
             $table->timestamps();
         });
     }
