@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\AnnoucementController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,13 +16,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    $page_name = 'annoucements';
-    return view('annoucements', compact('page_name'));
-});
+Route::get('/', [AnnoucementController::class, 'index']);
+Route::get('/annoucement', [AnnoucementController::class, 'general'])->name('annoucement');
 
-Auth::routes([
-    'register' => false,
-]);
+Auth::routes(['register' => false,]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login']);
+
+Route::get('/home', [HomeController::class, 'index'])->name('home');

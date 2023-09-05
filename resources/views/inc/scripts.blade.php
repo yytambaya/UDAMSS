@@ -24,5 +24,9 @@
             <script src="{{ asset('plugins/editors/quill/custom-quill.js') }}"></script>
             @break
 
+        @case( 'login' )
+            <script src="{{ asset('assets/js/authentication/form-2.js') }}"></script>
+            @break
+
     @endswitch
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->

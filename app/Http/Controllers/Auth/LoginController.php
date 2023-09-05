@@ -6,6 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
+use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
+// use App\Rules\UsernameValidation;
+use Illuminate\Support\Str;
+
 class LoginController extends Controller
 {
     /*
@@ -36,5 +42,42 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    /**
+     * Login page view.
+     *
+     * @return void
+     */
+    public function showLoginForm()
+    {
+        $page_name = 'login';
+        return view('auth.login', compact('page_name'));
+    }
+
+    /**
+     * Handle an authentication attempt.
+     */
+    public function login(Request $request): RedirectResponse
+    {
+
+        $credentials = $request->validate([
+            'email' => ['required'],
+            'password' => ['required'],
+        ]);
+                
+        if( preg_match('/[a-zA-Z0-9]{8,}$/', $credentials['email']) ) {
+            $credentials['email'] = Str::finish($credentials['email'], '@dcs.abu.edu.ng');
+        }
+        // dd($credentials);
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+ 
+            return redirect()->intended('annoucement');
+        }
+ 
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records!',
+        ])->onlyInput('email');
     }
 }
