@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -73,6 +74,15 @@ class User extends Authenticatable
     }
     
     /**
+     * Get the user posted announcements.
+     *
+     */
+    public function announcement(): HasMany
+    {
+        return $this->hasMany(Announcement::class);
+    }
+    
+    /**
      * Get the user formatted Name.
      *
      */
@@ -83,14 +93,15 @@ class User extends Authenticatable
         $mname = Str::ucfirst($this->middle_name);
         $lname = Str::upper($this->last_name);
         $name = "";
-
-        if( $this->usertype === 'lecturer' ){
+        
+        if( $this->isLecturer() ){
             $title = Str::ucfirst($this->lecturer->title).'.';
             $fname = Str::upper($fname[0].'.');
             $mname = Str::upper((!empty($mname))?' '.$mname[0].'.':'');
+            $lname = Str::ucfirst($this->last_name);
             $name = "$title $fname$mname, $lname";
         }
-        else if( $this->usertype === 'student' ){
+        else if( $this->isStudent() ){
             $mname = Str::upper((!empty($mname))?''.$mname[0].'. ':'');
             $name = "$lname, $mname$fname";
         }
@@ -111,6 +122,46 @@ class User extends Authenticatable
         else if( Str::of($role)->contains(['siwes','Siwes']) ) {
             $role = Str::of($role)->replace(['siwes','Siwes'], Str::upper('siwes'));
         }
+        else if( Str::of($role)->contains(['assistant']) ) {
+            $role = Str::of($role)->replace(['assistant'], Str::upper('assit.'));
+        }
         return $role;
     }
+    
+    /**
+     * Check for class rep.
+     *
+     */
+    public function isClassRep(): bool
+    {
+        return Str::lower($this->role) === 'class representative';
+    }
+    
+    /**
+     * Check for assit. class rep.
+     *
+     */
+    public function isAsstClassRep(): bool
+    {
+        return Str::lower($this->role) === 'assistant class representative';
+    }
+    
+    /**
+     * Check if user is a lecturer.
+     *
+     */
+    public function isLecturer(): bool
+    {
+        return Str::lower($this->usertype) === 'lecturer';
+    }
+    
+    /**
+     * Check if user is a student.
+     *
+     */
+    public function isStudent(): bool
+    {
+        return Str::lower($this->usertype) === 'student';
+    }
+
 }

@@ -15,7 +15,7 @@
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
     @switch( $page_name )
     
-        @case( 'annoucements' )
+        @case( 'announcements' )
             <script src="{{ asset('plugins/apex/apexcharts.min.js') }}"></script>
             <script src="{{ asset('assets/js/dashboard/dash_1.js') }}"></script>
             <script src="{{ asset('assets/js/scrollspyNav.js') }}"></script>

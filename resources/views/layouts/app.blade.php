@@ -1,4 +1,6 @@
 @include('inc.common')
+@php($page_name = $data['page_name'])
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

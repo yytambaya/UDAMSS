@@ -11,7 +11,7 @@
 
 <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM STYLES -->
 @switch( $page_name )
-    @case( 'annoucements' )
+    @case( 'announcements' )
         <link href="{{ asset('plugins/apex/apexcharts.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('plugins/animate/animate.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('assets/css/dashboard/dash_1.css') }}" rel="stylesheet" type="text/css" />
