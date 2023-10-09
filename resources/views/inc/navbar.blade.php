@@ -13,18 +13,6 @@
                     </div>
                 </form>
             </li>
-
-            <li class="nav-item dropdown language-dropdown">
-                <a href="javascript:void(0);" class="nav-link dropdown-toggle" id="language-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-crosshair"><circle cx="12" cy="12" r="10"></circle><line x1="22" y1="12" x2="18" y2="12"></line><line x1="6" y1="12" x2="2" y2="12"></line><line x1="12" y1="6" x2="12" y2="2"></line><line x1="12" y1="22" x2="12" y2="18"></line></svg>
-                </a>
-                <div class="dropdown-menu position-absolute" aria-labelledby="language-dropdown">
-                    <a class="dropdown-item d-flex" href="javascript:void(0);"> <span class="align-self-center">&nbsp;Lookup</span></a>
-                    <a class="dropdown-item d-flex" href="javascript:void(0);"> <span class="align-self-center">&nbsp;Testometer</span></a>
-                    <a class="dropdown-item d-flex" href="javascript:void(0);"> <span class="align-self-center">&nbsp;Supervision</span></a>
-                    <a class="dropdown-item d-flex" href="javascript:void(0);"> <span class="align-self-center">&nbsp;Coordination</span></a>
-                </div>
-            </li>
             
             <li class="nav-item dropdown message-dropdown">
                 <a href="javascript:void(0);" class="nav-link dropdown-toggle" id="messageDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -32,22 +20,6 @@
                 </a>
                 <div class="dropdown-menu position-absolute e-animated e-fadeInUp" aria-labelledby="messageDropdown">
                     <div class="">
-                        <a class="dropdown-item">
-                            <div class="">
-                                <div class="media notification-new">
-                                    <div class="notification-icon">
-                                        <div class="icon-svg mr-3">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-square"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-                                        </div>
-                                    </div>
-                                    <div class="media-body">
-                                            <p class="meta-title mr-3">5 messages for group</p>
-                                            <p class="message-text">Kelly, Amy, Shaun</p>
-                                            <p class="meta-time align-self-center mb-0">Yesterday</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
                         <a class="dropdown-item">
                             <div class="">
                                 <div class="media notification-new">
@@ -60,22 +32,6 @@
                                             <p class="meta-user-name mr-3">Kara Young</p>
                                             <p class="message-text">Some quick example text to build the notification ..</p>
                                             <p class="meta-time align-self-center mb-0">2 hours ago</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <a class="dropdown-item">
-                            <div class="">
-                                <div class="media notification-new">
-                                    <div class="notification-icon">
-                                        <div class="icon-svg mr-3">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                                        </div>
-                                    </div>
-                                    <div class="media-body">
-                                            <p class="meta-title mr-3">1 new email</p>
-                                            <p class="message-text">Anderson.Daisy@mail.com</p>
-                                            <p class="meta-time align-self-center mb-0">Yesterday</p>
                                     </div>
                                 </div>
                             </div>

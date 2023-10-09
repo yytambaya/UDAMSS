@@ -49,21 +49,12 @@ endif;
                             <div class="mt-2">
                                 <form id="post-announcement" method="post" action="{{ route('post.general.announcement')}}">
                                     @csrf
+                                    <input type="hidden" name="publicity" value="general">
                                     <div class="form-group">
                                         <textarea rows="10" name="content" class="form-control" placeholder="Compose an epic..."></textarea>
                                     </div>
                                 </form>
                             </div>
-                            {{-- <div id="editor-container" class="ql-container ql-snow">
-                                <div class="ql-editor" data-gramm="false" contenteditable="true" data-placeholder="Compose an epic...">
-                                </div>
-                                <div class="ql-clipboard" contenteditable="true" tabindex="-1"></div>
-                                <div class="ql-tooltip ql-hidden"><a class="ql-preview" target="_blank" href="about:blank"></a>
-                                <input type="text" data-formula="e=mc^2" data-link="https://quilljs.com" data-video="Embed URL">
-                                    <a class="ql-action"></a>
-                                    <a class="ql-remove"></a>
-                                </div>
-                            </div> --}}
                         </div>
                         <div class="modal-footer d-flex justify-content-around">
                             <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Discard</button>
@@ -142,9 +133,69 @@ endif;
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="options">
-                                                    <a class="dropdown-item" href="javascript:void(0);">Edit</a>
-                                                    <a class="dropdown-item" href="javascript:void(0);">Hide</a>
-                                                    <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+                                                    <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#updateAnnouncement-{{$announcement->id}}">Edit</a>
+                                                    <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#deleteAnnouncement-{{$announcement->id}}">Delete</a>
+                                                </div>
+                                            </div>
+                                            <div class="modal fade" id="updateAnnouncement-{{$announcement->id}}" tabindex="-1" role="dialog" aria-labelledby="updateAnnouncement-{{$announcement->id}}Label" style="display: none;" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="updateAnnouncement-{{$announcement->id}}Label">Update Announcement</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="mb-4">
+                                                                <h6>Publicity:
+                                                                    <span class="badge badge-secondary">{{ucwords($publicityLabel)}}</span>
+                                                                </h6>
+                                                            </div>
+                                                            <div class="mt-2">
+                                                                <form id="edit-message" method="post" action="{{ route('edit.general.announcement')}}">
+                                                                    @csrf
+                                                                    <div class="form-group">
+                                                                        <input type="hidden" name="announcement_id" value="{{$announcement->id}}">
+                                                                        <textarea rows="10" name="content" class="form-control" placeholder="Compose an epic...">{{old('content', $announcement->content)}}</textarea>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer d-flex justify-content-around">
+                                                            <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Discard</button>
+                                                            <button type="submit" form="edit-message" class="btn btn-warning">Update</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal fade" id="deleteAnnouncement-{{$announcement->id}}" tabindex="-1" role="dialog" aria-labelledby="deleteAnnouncement-{{$announcement->id}}Label" style="display: none;" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="deleteAnnouncement-{{$announcement->id}}Label">Confirm Message Deletion</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="mb-4">
+                                                                <h3 class="text-center">Are You Sure?</h3>
+                                                                <h6 class="text-center">You want to delete this message.</h6>
+                                                                <p class="text-center text-danger">You can't undo this action</p>
+                                                            </div>
+                                                            <div class="mt-2">
+                                                                <form id="delete-message" method="post" action="{{ route('delete.general.announcement')}}">
+                                                                    @csrf
+                                                                    <input type="hidden" name="announcement_id" value="{{$announcement->id}}">
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer d-flex justify-content-around">
+                                                            <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Discard</button>
+                                                            <button type="submit" form="delete-message" class="btn btn-danger">Yes, delete</button>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -163,7 +214,7 @@ endif;
                             </div>
                         </div>
                     @empty
-                        <h3>No Announcements Yet!</h3>
+                        <p class="text-danger lead">No Announcements Yet!</p>
                     @endforelse
 
 

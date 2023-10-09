@@ -1333,7 +1333,8 @@ select.form-control.form-custom {
 
 .badge-success {
   color: #fff;
-  background-color: #8dbf42; }
+  background-color: #8dbf42;
+  }
 
 .badge-danger {
   color: #fff;
@@ -1601,9 +1602,10 @@ input[disabled], select[disabled], textarea[disabled], input[readonly], select[r
   color: #515365; }
 
 .table > tbody > tr > td .progress {
-  width: 135px;
-  height: 6px;
-  margin: auto 0; }
+  width: 100%;
+  /* height: 6px; */
+  margin: auto 0;
+  }
 
 .table > tbody > tr > td svg.icon {
   width: 21px; }
@@ -1751,7 +1753,8 @@ table .badge-success, table .badge-primary, table .badge-warning, table .badge-d
 .bg-primary {
   background-color: #1b55e2 !important;
   border-color: #1b55e2;
-  color: #fff; }
+  color: #fff;
+  }
 
 .bg-success {
   background-color: #8dbf42 !important;
@@ -1839,9 +1842,10 @@ table .badge-success, table .badge-primary, table .badge-warning, table .badge-d
     font-size: 10px;
     font-weight: 700;
     box-shadow: 0 2px 4px rgba(0, 69, 255, 0.15), 0 8px 16px rgba(0, 69, 255, 0.2);
-    font-size: 12px;
+    /* font-size: 12px; */
     letter-spacing: 1px;
-    font-weight: 100; }
+    font-weight: 100;
+    }
   .progress:not(.progress-bar-stack) .progress-bar {
     border-radius: 16px; }
 
@@ -1866,10 +1870,12 @@ table .badge-success, table .badge-primary, table .badge-warning, table .badge-d
 
 .progress .progress-title {
   display: flex;
-  justify-content: space-between;
-  padding: 15px; }
+  justify-content: center;
+  padding: 15px;
+  }
   .progress .progress-title span {
-    align-self: center; }
+    align-self: center;
+    }
 
 .progress .progress-bar.bg-gradient-primary {
   background-color: #1b55e2;

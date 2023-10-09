@@ -40,7 +40,10 @@ class AnnouncementController extends Controller
         $data = [
             'page_name' => 'announcements',
             'publicity' => 'general',
-            'announcements' => Announcement::where('publicity','general')
+            'announcements' => Announcement::where([
+                ['publicity','general'],
+                ['status','active'],
+                ])
                 ->orderBy('created_at', 'desc')
                 ->get(),
         ];
@@ -59,7 +62,10 @@ class AnnouncementController extends Controller
         $data = [
             'page_name' => 'announcements',
             'publicity' => 'staff',
-            'announcements' => Announcement::where('publicity','staff')
+            'announcements' => Announcement::where([
+                ['publicity','staff'],
+                ['status','active'],
+                ])
                 ->orderBy('created_at', 'desc')
                 ->get(),
         ];
@@ -78,7 +84,10 @@ class AnnouncementController extends Controller
         $data = [
             'page_name' => 'announcements',
             'publicity' => '4',
-            'announcements' => Announcement::where('publicity','level4')
+            'announcements' => Announcement::where([
+                ['publicity','level4'],
+                ['status','active'],
+                ])
                 ->orderBy('created_at', 'desc')
                 ->get(),
         ];
@@ -97,7 +106,10 @@ class AnnouncementController extends Controller
         $data = [
             'page_name' => 'announcements',
             'publicity' => '3',
-            'announcements' => Announcement::where('publicity','level3')
+            'announcements' => Announcement::where([
+                ['publicity','level3'],
+                ['status','active'],
+                ])
                 ->orderBy('created_at', 'desc')
                 ->get(),
         ];
@@ -115,7 +127,10 @@ class AnnouncementController extends Controller
         $data = [
             'page_name' => 'announcements',
             'publicity' => '2',
-            'announcements' => Announcement::where('publicity','level2')
+            'announcements' => Announcement::where([
+                ['publicity','level2'],
+                ['status','active'],
+                ])
                 ->orderBy('created_at', 'desc')
                 ->get(),
         ];
@@ -134,7 +149,10 @@ class AnnouncementController extends Controller
         $data = [
             'page_name' => 'announcements',
             'publicity' => '1',
-            'announcements' => Announcement::where('publicity','level1')
+            'announcements' => Announcement::where([
+                ['publicity','level1'],
+                ['status','active'],
+                ])
                 ->orderBy('created_at', 'desc')
                 ->get(),
         ];
@@ -153,17 +171,18 @@ class AnnouncementController extends Controller
      *
      * @return void
      */
-    public function postGeneral(Request $request)
+    public function postAnnouncement(Request $request)
     {
         
         $validatedData = $request->validate([
-            'user_id' => 'sometimes|required',
+            'publicity' => 'required',
             'content' => 'required',
         ]);
 
         $validatedData['user_id'] = $request->user()->id;
+        $validatedData['publicity'] = (is_numeric($validatedData['publicity']))?
+            "level".$validatedData['publicity']:$validatedData['publicity'];
         
-        // dd($validatedData);
         $announcement = Announcement::create($validatedData);
 
         return back()->with('success', 'Announcement Posted Successfully!');
@@ -171,25 +190,54 @@ class AnnouncementController extends Controller
     }
     
     /**
-     * Post a general announcement.
+     *
      *
      * @return void
      */
-    public function postLevel4(Request $request)
+    public function editAnnouncement(Request $request)
     {
-        
+
+        $user = $request->user();
+
         $validatedData = $request->validate([
-            'user_id' => 'sometimes|required',
+            'announcement_id' => 'required|numeric',
             'content' => 'required',
         ]);
 
-        $validatedData['user_id'] = $request->user()->id;
-        $validatedData['publicity'] = 'level4';
-        
-        $announcement = Announcement::create($validatedData);
+        $announcement_id = $validatedData['announcement_id'];
+        $announcement = Announcement::where('id', $announcement_id)->first();
+        $affected_rows = $announcement->update($validatedData);
 
-        return back()->with('success', 'Announcement Posted Successfully!');
+        if ( $affected_rows )
+            return redirect()->back()->with('success', 'Message updated successfully!');
+
+        return redirect()->back()->with('warning', 'Failed to update message!');       
+    }
+
+    /**
+     *
+     *
+     * @return void
+     */
+    public function deleteAnnouncement(Request $request)
+    {
+
+        $user = $request->user();
+
+        $validatedData = $request->validate([
+            'announcement_id' => 'required|numeric',
+        ]);
+
+        $announcement_id = $validatedData['announcement_id'];
+        $announcement = Announcement::where('id', $announcement_id)->first();
+        $affected_rows = $announcement->update(['status' => 'hidden']);
+
+        if ( $affected_rows )
+            return redirect()->back()->with('success', 'Message updated successfully!');
+
+        return redirect()->back()->with('warning', 'Failed to update message!'); 
        
     }
+    
 
 }

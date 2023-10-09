@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Str;
 
 
-class Student extends Model
+
+class Supervisor extends Model
 {
     use HasFactory;
 
@@ -19,27 +19,31 @@ class Student extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'user_id',
-        'regno',
-        'level',
+        'lecturer_id',
+        'session',
     ];
 
     /**
-     * Get the student as a user.
+     * Get the Lecturer as Supervisor.
      *
      */
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'lecturer_id');
     }
 
-    public function getRegno(): String
+    /**
+     * Get the SupervisoryGroups Supervisor.
+     *
+     */
+    public function supervisory_group(): HasMany
     {
-        return Str::lower($this->regno);
+        return $this->hasMany(SupervisoryGroup::class, 'supervisor_id','lecturer_id');
     }
 
-    public function getCapRegno(): String
+    public function getFormattedName(): String
     {
-        return Str::upper($this->regno);
+        return $this->user->getFormattedName();
     }
+
 }

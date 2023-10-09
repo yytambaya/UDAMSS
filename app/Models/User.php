@@ -73,6 +73,34 @@ class User extends Authenticatable
         return $this->hasOne(Student::class);
     }
     
+    
+    /**
+     * Get the user as a student.
+     *
+     */
+    public function supervisory_interaction(): HasMany
+    {
+        return $this->hasMany(SupervisoryInteraction::class);
+    }
+    
+    /**
+     * Get the User/Lecturer as Supervisor.
+     *
+     */
+    public function supervisor(): HasMany
+    {
+        return $this->hasMany(Supervisor::class, 'lecturer_id');
+    }
+    
+    /**
+     * Get the User/Student as Supervisee.
+     *
+     */
+    public function supervisee(): HasMany
+    {
+        return $this->hasMany(Supervisee::class, 'student_id');
+    }
+    
     /**
      * Get the user posted announcements.
      *
@@ -83,12 +111,32 @@ class User extends Authenticatable
     }
     
     /**
+     * Get the user fullname Name.
+     *
+     */
+    public function getFullName(): String
+    {
+        $fname = Str::ucfirst($this->first_name);
+        $mname = Str::ucfirst($this->middle_name);
+        $lname = Str::ucfirst($this->last_name);
+        $name = "";
+        
+        if( $this->isLecturer() ){
+            $title = Str::ucfirst($this->lecturer->title).'.';
+            $name = "$title $fname $mname, $lname";
+        }
+        else if( $this->isStudent() ){
+            $name = "$lname, $mname $fname";
+        }
+        return $name;
+    }
+
+    /**
      * Get the user formatted Name.
      *
      */
     public function getFormattedName(): String
     {
-        $this->usertype;
         $fname = Str::ucfirst($this->first_name);
         $mname = Str::ucfirst($this->middle_name);
         $lname = Str::upper($this->last_name);
@@ -129,6 +177,66 @@ class User extends Authenticatable
     }
     
     /**
+     * Check if user is a lecturer.
+     *
+     */
+    public function isLecturer(): bool
+    {
+        return Str::lower($this->usertype) === 'lecturer';
+    }
+    
+    /**
+     * Check if user is a lecturer.
+     *
+     */
+    public function isProjectCoordinator(): bool
+    {
+        return  $this->isLecturer() && Str::lower($this->role) === 'siwes/project coordinator';
+    }
+    
+    /**
+     * Check if user is a lecturer.
+     *
+     */
+    public function isSupervisor(): bool
+    {
+        if( $this->isLecturer() ){
+            $supervisor = SupervisoryGroup::where([
+                ['supervisor_id', $this->id],
+                ['session', config('global.session')],
+            ])->get();
+            return $supervisor->isNotEmpty();
+        }
+        return false;
+    }
+
+    public function isSupervisee(): bool
+    {
+        if( $this->isStudent() ){
+            $student_id = $this->id;
+            $supervisee = ($this->supervisee)?$this->supervisee:[];
+            $supervisory_groups = SupervisoryGroup::where([
+                ['session', config('global.session')],
+                ['supervision_type', 'project'],
+            ])->get()->all();
+            
+            // get all current supervisory groups
+            foreach($supervisory_groups as $supervisory_group){
+                $supervisees = ($supervisory_group->supervisee)?
+                $supervisory_group->supervisee:[];
+                // get their supervicess and check for this student
+                foreach($supervisees as $supervisee){
+                    if ($student_id == $supervisee->student_id){
+                        return true;
+                    }
+                }
+            }
+
+        }
+        return false;
+    }
+    
+    /**
      * Check for class rep.
      *
      */
@@ -144,15 +252,6 @@ class User extends Authenticatable
     public function isAsstClassRep(): bool
     {
         return Str::lower($this->role) === 'assistant class representative';
-    }
-    
-    /**
-     * Check if user is a lecturer.
-     *
-     */
-    public function isLecturer(): bool
-    {
-        return Str::lower($this->usertype) === 'lecturer';
     }
     
     /**
