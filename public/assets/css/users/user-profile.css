@@ -53,8 +53,9 @@
       width: 55px;
       background: #1b55e2;
       border-radius: 50%;
-      bottom: 9px;
-      left: 15px; }
+      bottom: -1px;
+      left: 15px;
+      }
   .user-profile .widget-content-area .user-info {
     margin-top: 40px; }
     .user-profile .widget-content-area .user-info img {
@@ -67,8 +68,9 @@
       color: #1b55e2; }
   .user-profile .widget-content-area .user-info-list ul.contacts-block {
     border: none;
-    max-width: 217px;
-    margin: 36px auto; }
+    max-width: fit-content;
+    margin: 36px auto;
+    }
     .user-profile .widget-content-area .user-info-list ul.contacts-block li {
       margin-bottom: 13px;
       font-weight: 600;

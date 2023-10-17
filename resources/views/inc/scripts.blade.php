@@ -76,6 +76,11 @@
             <script src="{{asset('assets/js/authentication/form-2.js')}}"></script>
             @break
 
+        @case( 'schedule' )
+            <script src="{{asset('plugins/dropify/dropify.min.js')}}"></script>
+            <script src="{{asset('plugins/blockui/jquery.blockUI.min.js')}}"></script>
+            @break
+
         @case( 'project' )
             <script src="{{asset('assets/js/scrollspyNav.js')}}"></script>
             <script src="{{asset('plugins/table/datatable/datatables.js')}}"></script>

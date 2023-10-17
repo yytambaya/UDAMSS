@@ -43,6 +43,12 @@
         <link href="{{ asset('plugins/bootstrap-select/bootstrap-select.min.css')}}" rel="stylesheet" type="text/css" />
         @break
 
+    @case( 'schedule' )
+        <link href="{{ asset('assets/css/users/user-profile.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('assets/css/users/account-setting.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('plugins/dropify/dropify.min.css')}}" rel="stylesheet" type="text/css" />
+        @break
+
 
 
 @endswitch

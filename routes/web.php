@@ -21,6 +21,18 @@ use App\Http\Controllers\ProjectWorkCoordinationController;
 
 Route::get('/',  function () { redirect( route('general.announcement') ); });
 
+Route::get('/lecturers', [HomeController::class, 'lecturers'])->name('lecturers');
+Route::get('/students', [HomeController::class, 'students'])->name('students');
+
+Route::prefix('profile')->group( function() {
+    Route::post('/getprofile', [HomeController::class, 'getProfile'])->name('get.profile'); //redirects to 'profile'
+    Route::get('/{id}', [HomeController::class, 'profile'])->name('profile');
+    Route::post('/edit', [HomeController::class, 'getEditProfile'])->name('get.edit.profile'); //redirects to 'edit.profile'
+    Route::get('/edit/{id}', [HomeController::class, 'editProfile'])->name('edit.profile');
+    Route::post('/update', [HomeController::class, 'updateProfile'])->name('update.profile');
+    
+});
+
 Route::prefix('announcement')->group( function() {
 
     Route::get('/', function () { redirect( route('general.announcement') ); });
