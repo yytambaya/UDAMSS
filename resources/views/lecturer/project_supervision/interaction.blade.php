@@ -104,7 +104,7 @@
                                                                 </h6>
                                                             </div>
                                                             <div class="mt-2">
-                                                                <form id="edit-message" method="post" action="{{ route('editinteractionmessage.interaction.supervision.project')}}">
+                                                                <form id="edit-message-{{$interaction['id']}}" method="post" action="{{ route('editinteractionmessage.interaction.supervision.project')}}">
                                                                     @csrf
                                                                     <div class="form-group">
                                                                         <input type="hidden" name="message_id" value="{{$interaction['id']}}">
@@ -115,7 +115,7 @@
                                                         </div>
                                                         <div class="modal-footer d-flex justify-content-around">
                                                             <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Discard</button>
-                                                            <button type="submit" form="edit-message" class="btn btn-warning">Update</button>
+                                                            <button type="submit" form="edit-message-{{$interaction['id']}}" class="btn btn-warning">Update</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -136,7 +136,7 @@
                                                                 <p class="text-center text-danger">You can't undo this action</p>
                                                             </div>
                                                             <div class="mt-2">
-                                                                <form id="delete-message" method="post" action="{{ route('deleteinteractionmessage.interaction.supervision.project')}}">
+                                                                <form id="delete-message-{{$interaction['id']}}" method="post" action="{{ route('deleteinteractionmessage.interaction.supervision.project')}}">
                                                                     @csrf
                                                                     <input type="hidden" name="message_id" value="{{$interaction['id']}}">
                                                                 </form>
@@ -144,7 +144,7 @@
                                                         </div>
                                                         <div class="modal-footer d-flex justify-content-around">
                                                             <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Discard</button>
-                                                            <button type="submit" form="delete-message" class="btn btn-danger">Yes, delete</button>
+                                                            <button type="submit" form="delete-message-{{$interaction['id']}}" class="btn btn-danger">Yes, delete</button>
                                                         </div>
                                                     </div>
                                                 </div>

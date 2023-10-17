@@ -573,7 +573,7 @@ class ProjectWorkCoordinationController extends Controller
         ]);
 
         if( $this->isSupervisionLimitReached($validatedData['supervisory_group_id'])){
-            return redirect()->back()->withInput()->with('max_supervision_limit', 'Maximun number of students reached!');
+            return redirect()->back()->withInput()->with('warning', 'Maximun number of students reached!');
         }
         else{
             $validatedData['session'] = config('global.session');        
@@ -601,14 +601,14 @@ class ProjectWorkCoordinationController extends Controller
         ]);
         
         if( $this->isSupervisionLimitReached($validatedData['new_supervisory_group_id'])){
-            return redirect()->back()->withInput()->with('max_supervision_limit', 'Maximun number of students reached!');
+            return redirect()->back()->withInput()->with('warning', 'Maximun number of students reached!');
         }
         else{
             $supervisee = Supervisee::where('student_id', $validatedData['student_id'])->first();      
             $supervisee->update(['supervisory_group_id'=> $validatedData['new_supervisory_group_id']]);
         }
 
-        return redirect()->back()->with('reassign_success', 'Student Reassigned Successfully!');
+        return redirect()->back()->with('success', 'Student Reassigned Successfully!');
     }
 
     /**

@@ -185,7 +185,7 @@ class AnnouncementController extends Controller
         
         $announcement = Announcement::create($validatedData);
 
-        return back()->with('success', 'Announcement Posted Successfully!');
+        return back()->with('success', 'Announcement posted successfully!');
        
     }
     
@@ -211,9 +211,9 @@ class AnnouncementController extends Controller
         $affected_rows = $announcement->update($validatedData);
 
         if ( $affected_rows )
-            return redirect()->back()->with('success', 'Message updated successfully!');
+            return redirect()->back()->with('success', 'Announcement updated successfully!');
 
-        return redirect()->back()->with('warning', 'Failed to update message!');       
+        return redirect()->back()->with('warning', 'Failed to update announcement!');       
     }
 
     /**
@@ -235,9 +235,9 @@ class AnnouncementController extends Controller
         $affected_rows = $announcement->update(['status' => 'hidden']);
 
         if ( $affected_rows )
-            return redirect()->back()->with('success', 'Message updated successfully!');
+            return redirect()->back()->with('success', 'Announcement deleted successfully!');
 
-        return redirect()->back()->with('warning', 'Failed to update message!'); 
+        return redirect()->back()->with('warning', 'Failed to deleted announcement!'); 
        
     }
     

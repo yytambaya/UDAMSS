@@ -10,6 +10,54 @@
         });
     </script>
     <script src="{{asset('assets/js/custom.js')}}"></script>
+
+    <script src="{{asset('plugins/notification/snackbar/snackbar.min.js')}}"></script>
+    <script src="{{asset('assets/js/components/notification/custom-snackbar.js')}}"></script>
+
+    @if(Session::has('login'))
+    <script>
+        Snackbar.show({
+            text: "{{Session::get('login')}}",
+            actionTextColor: '#fff',
+            backgroundColor: '#8dbf42',
+            pos: 'top-right',
+            duration: 2000,
+        });
+    </script>
+    @endif
+
+    @if(Session::has('success'))
+    <script>
+        Snackbar.show({
+            text: "{{Session::get('success')}}",
+            actionTextColor: '#fff',
+            backgroundColor: '#8dbf42',
+            pos: 'top-center'
+        });
+    </script>
+    @endif
+
+    @if(Session::has('warning'))
+    <script>
+        Snackbar.show({
+            text: "{{Session::get('warning')}}",
+            actionTextColor: '#fff',
+            backgroundColor: '#e2a03f',
+            pos: 'top-center'
+        });
+    </script>
+    @endif
+
+    @if(Session::has('error'))
+    <script>
+        Snackbar.show({
+            text: "{{Session::get('error')}}",
+            actionTextColor: '#fff',
+            backgroundColor: '#e7515a',
+            pos: 'top-center'
+        });
+    </script>
+    @endif
     <!-- END GLOBAL MANDATORY SCRIPTS -->
 
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->

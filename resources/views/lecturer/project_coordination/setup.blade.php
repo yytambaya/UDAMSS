@@ -19,15 +19,6 @@
                         <div class="widget-content widget-content-area br-6">
                             <fieldset class="form-group border-round p-3 w-auto">
                                 <legend class="badge badge-dark text-left w-auto">Topic Submissions</legend>
-                                @if(Session::has('error'))
-                                    <span class="invalid-feedback d-flex mb-3" role="alert">
-                                        <strong>{{Session::get('error')}}</strong>
-                                    </span>
-                                @elseif(Session::has('warning'))
-                                    <span class="invalid-feedback d-flex mb-3" role="alert">
-                                        <strong>{{Session::get('warning')}}</strong>
-                                    </span>
-                                @endif
                                 <div class="form-row">
                                     <div class="col-12 my-4">
                                         <table>
@@ -213,11 +204,6 @@
                             <div class="col-xl-12 col-md-12 col-sm-12 col-12 my-3">
                                 <h4 class="text-center mb-5">Supervisory Assignment</h4>
                             </div>
-                            @if(Session::has('max_supervision_limit'))
-                                <span class="invalid-feedback d-flex mb-3 justify-content-center" role="alert">
-                                    <strong>{{Session::get('max_supervision_limit')}}</strong>
-                                </span>
-                            @endif
                             <form id="assgin-supervisee" method="post" action="{{route('assign.supervisee')}}">
                                 <fieldset class="form-group border-round p-3 w-auto">
                                     <legend class="badge badge-success text-left w-auto">New Student Assignment</legend>
