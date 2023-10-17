@@ -84,9 +84,69 @@
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="options">
-                                                    <a class="dropdown-item" href="javascript:void(0);">Edit</a>
-                                                    <a class="dropdown-item" href="javascript:void(0);">Hide</a>
-                                                    <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+                                                    <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#updateMeassage-{{$interaction['id']}}">Edit</a>
+                                                    <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#deleteMessage-{{$interaction['id']}}">Delete</a>
+                                                </div>
+                                            </div>
+                                            <div class="modal fade" id="updateMeassage-{{$interaction['id']}}" tabindex="-1" role="dialog" aria-labelledby="updateMeassage-{{$interaction['id']}}Label" style="display: none;" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="updateMeassage-{{$interaction['id']}}Label">Update Message</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="mb-4">
+                                                                <h6>Publicity:
+                                                                    <span class="badge badge-secondary">{{ucwords($publicityLabel)}}</span>
+                                                                </h6>
+                                                            </div>
+                                                            <div class="mt-2">
+                                                                <form id="edit-message" method="post" action="{{ route('editinteractionmessage.interaction.supervision.project')}}">
+                                                                    @csrf
+                                                                    <div class="form-group">
+                                                                        <input type="hidden" name="message_id" value="{{$interaction['id']}}">
+                                                                        <textarea rows="10" name="content" class="form-control" placeholder="Compose an epic...">{{old('content', $interaction['content'])}}</textarea>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer d-flex justify-content-around">
+                                                            <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Discard</button>
+                                                            <button type="submit" form="edit-message" class="btn btn-warning">Update</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal fade" id="deleteMessage-{{$interaction['id']}}" tabindex="-1" role="dialog" aria-labelledby="deleteMessage-{{$interaction['id']}}Label" style="display: none;" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="deleteMessage-{{$interaction['id']}}Label">Confirm Message Deletion</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="mb-4">
+                                                                <h3 class="text-center">Are You Sure?</h3>
+                                                                <h6 class="text-center">You want to delete this message.</h6>
+                                                                <p class="text-center text-danger">You can't undo this action</p>
+                                                            </div>
+                                                            <div class="mt-2">
+                                                                <form id="delete-message" method="post" action="{{ route('deleteinteractionmessage.interaction.supervision.project')}}">
+                                                                    @csrf
+                                                                    <input type="hidden" name="message_id" value="{{$interaction['id']}}">
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer d-flex justify-content-around">
+                                                            <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Discard</button>
+                                                            <button type="submit" form="delete-message" class="btn btn-danger">Yes, delete</button>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -127,8 +187,16 @@
                                             <tbody>
                                                 @forelse($supervisees as $supervisee)
                                                 <tr>
-                                                    <td>
-                                                        <a class="" href="javascript:void()">{{$supervisee['regno']}} - {{$supervisee['name']}}</a>
+                                                    <td>@php($sveid = $supervisee['id'])
+                                                        <a class="" href="javascript:void()"
+                                                            onclick="event.preventDefault();
+                                                            document.getElementById('workspace-form-{{$sveid}}').submit();">
+                                                            <form id="workspace-form-{{$sveid}}" action="{{ route('post.workspace.supervision.project') }}" method="POST" class="d-none">
+                                                                @csrf
+                                                                <input type="hidden" name="supervisory_group_id" value="{{$supervisory_group['sgid']}}">
+                                                                <input type="hidden" name="supervisee_id" value="{{$supervisee['id']}}">
+                                                            </form>
+                                                        {{$supervisee['regno']}} - {{$supervisee['name']}}</a>
                                                     </td>
                                                 </tr>
                                                 @empty

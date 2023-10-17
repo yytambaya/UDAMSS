@@ -148,7 +148,7 @@ endif;
                                                                 </h6>
                                                             </div>
                                                             <div class="mt-2">
-                                                                <form id="edit-message" method="post" action="{{ route('edit.general.announcement')}}">
+                                                                <form id="edit-message-{{$announcement->id}}" method="post" action="{{ route('edit.general.announcement')}}">
                                                                     @csrf
                                                                     <div class="form-group">
                                                                         <input type="hidden" name="announcement_id" value="{{$announcement->id}}">
@@ -159,7 +159,7 @@ endif;
                                                         </div>
                                                         <div class="modal-footer d-flex justify-content-around">
                                                             <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Discard</button>
-                                                            <button type="submit" form="edit-message" class="btn btn-warning">Update</button>
+                                                            <button type="submit" form="edit-message-{{$announcement->id}}" class="btn btn-warning">Update</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -180,7 +180,7 @@ endif;
                                                                 <p class="text-center text-danger">You can't undo this action</p>
                                                             </div>
                                                             <div class="mt-2">
-                                                                <form id="delete-message" method="post" action="{{ route('delete.general.announcement')}}">
+                                                                <form id="delete-message-{{$announcement->id}}" method="post" action="{{ route('delete.general.announcement')}}">
                                                                     @csrf
                                                                     <input type="hidden" name="announcement_id" value="{{$announcement->id}}">
                                                                 </form>
@@ -188,7 +188,7 @@ endif;
                                                         </div>
                                                         <div class="modal-footer d-flex justify-content-around">
                                                             <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Discard</button>
-                                                            <button type="submit" form="delete-message" class="btn btn-danger">Yes, delete</button>
+                                                            <button type="submit" form="delete-message-{{$announcement->id}}" class="btn btn-danger">Yes, delete</button>
                                                         </div>
                                                     </div>
                                                 </div>

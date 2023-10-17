@@ -80,6 +80,8 @@ Route::prefix('project')->group( function() {
     
     Route::get('/supervision/interaction', [ProjectWorkSupervisionController::class, 'interaction'])->name('interaction.supervision.project');
     Route::post('/supervision/interaction/postmessage', [ProjectWorkSupervisionController::class, 'postInteractionMessage'])->name('postinteractionmessage.supervision.project');
+    Route::post('/project/interaction/editmessage', [ProjectWorkController::class, 'editInteractionMessage'])->name('editinteractionmessage.interaction.supervision.project');
+    Route::post('/project/interaction/deletemessage', [ProjectWorkController::class, 'deleteInteractionMessage'])->name('deleteinteractionmessage.interaction.supervision.project');
     
     Route::get('/supervision/workspace', [ProjectWorkSupervisionController::class, 'workspace'])->name('workspace.supervision.project');
     Route::post('/supervision/workspace', [ProjectWorkSupervisionController::class, 'postWorkspace'])->name('post.workspace.supervision.project');
