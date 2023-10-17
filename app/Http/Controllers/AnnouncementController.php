@@ -204,8 +204,10 @@ class AnnouncementController extends Controller
             'content' => 'required',
         ]);
 
+        // dd($validatedData);
+
         $announcement_id = $validatedData['announcement_id'];
-        $announcement = Announcement::where('id', $announcement_id)->first();
+        $announcement = Announcement::find($announcement_id);
         $affected_rows = $announcement->update($validatedData);
 
         if ( $affected_rows )

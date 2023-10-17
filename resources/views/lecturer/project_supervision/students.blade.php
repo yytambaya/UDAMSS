@@ -48,9 +48,15 @@
                                     <td>{{ucwords( Str::limit($supervisee['topic'], 50, '...') )}}</td>
                                     <td>
                                         <div class="progress br-30">
-                                            <div class="progress-bar bg-primary" role="progressbar" style="width: 50%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                                <div class="progress-title"><span>50%</span></div>
-                                            </div>
+                                            @if(isset($supervisee['progress']))
+                                                @if($supervisee['progress'])
+                                                <div class="progress-bar @if($supervisee['progress']==100)bg-success @else bg-primary @endif" role="progressbar" style="width: {{$supervisee['progress']}}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                                                    <div class="progress-title"><span>{{$supervisee['progress']}}%</span></div>
+                                                </div>
+                                                @else
+                                                <span class="text-dark text-monospace d-flex justify-content-center align-items-center">{{$supervisee['progress']}}%</span>
+                                                @endif
+                                            @endif
                                         </div>
                                     </td>
                                     <td>{{$supervisee['date']}}</td>
@@ -65,7 +71,16 @@
                                                  Profile</a>
                                                 <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#instantDM-{{$supervisee['id']}}"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-square"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
                                                  Instant DM</a>
-                                                <a class="dropdown-item" href="javascript:void(0);"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-settings"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                                                 @php($sveid = $supervisee['id'])
+                                                <a class="dropdown-item" href="javascript:void(0);"   
+                                                    onclick="event.preventDefault();
+                                                    document.getElementById('workspace-form-{{$sveid}}').submit();">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-settings"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                                                    <form id="workspace-form-{{$sveid}}" action="{{ route('post.workspace.supervision.project') }}" method="POST" class="d-none">
+                                                        @csrf
+                                                        <input type="hidden" name="supervisory_group_id" value="{{$supervisor['sgid']}}">
+                                                        <input type="hidden" name="supervisee_id" value="{{$supervisee['id']}}">
+                                                    </form>
                                                  WorkSpace</a>
                                             </div>
                                             <div class="modal fade" id="instantDM-{{$supervisee['id']}}" tabindex="-1" role="dialog" aria-labelledby="instantDM-{{$supervisee['id']}}-Label" style="display: none;" aria-hidden="true">
@@ -95,8 +110,8 @@
                                                                         <div class="form-group mb-0">
                                                                             <div class="n-chk">
                                                                                 <label class="new-control new-checkbox new-checkbox-rounded checkbox-primary">
-                                                                                    <input type="checkbox" name="label" class="new-control-input pr-3">
-                                                                                    <span class="new-control-indicator"></span> Important?
+                                                                                    <input type="checkbox" name="label" class="new-control-input">
+                                                                                    <span class="new-control-indicator"></span> <span class="ml-3">Important?</span>
                                                                                 </label>
                                                                             </div>
                                                                         </div>

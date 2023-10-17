@@ -53,6 +53,7 @@ class ProjectWorkSupervisionController extends Controller
                     
         $supervisor['name'] = ($sg_supervisor->getFormattedName())?
             $sg_supervisor->getFormattedName():'';
+        $supervisor['sgid'] = $supervisory_group->id;
 
         $sg_supervisees = ($supervisory_group->supervisee)?
             $supervisory_group->supervisee->where('assignment_action', 'approved'):[];
@@ -65,12 +66,59 @@ class ProjectWorkSupervisionController extends Controller
             $regno = $sg_supervisee->getCapRegno();
             $topic = ($sg_supervisee->getProjectTopic())?$sg_supervisee->getProjectTopic():'';
             $date = date('D, M j, h:i A', strtotime($sg_supervisee->created_at));
+
+            $this_supervisee = ($sg_supervisee)?$sg_supervisee:[];
+                $this_documentations =($this_supervisee && $this_supervisee->project_documentation)?
+            $this_supervisee->project_documentation->where('session', config('global.session'))->all():[];
+        
+            $documentations['progress'] = 0;
+            $chapter_status = [];
+            foreach($this_documentations as $this_documentation){
+                $sgid = $this_documentation->id;
+                $chapter_no = $this_documentation->chapter_no;
+                $supervisee_id = $this_documentation->supervisee_id;
+                $key = "chapter$chapter_no";
+                $comment = $this_documentation->comment;
+                $version = $this_documentation->version;
+                $status = $this_documentation->status;
+                $type = $this_documentation->type;
+                $date = Carbon::createFromDate($this_documentation->created_at)->format('D, M j, h:i A');
+                $documentations[$key]['documents'][] = [
+                    'id' => $sgid,
+                    'chapter_no' => $chapter_no,
+                    'supervisee_id' => $supervisee_id,
+                    'version' => $version,
+                    'type' => $type,
+                    'status' => $status,
+                    'comment' => $comment,
+                    'date' => $date,
+                ];
+
+                if( !array_key_exists($chapter_no, $chapter_status )){
+                    $chapter_status[$chapter_no] = $status;
+                    if( $status == 'approved')
+                        $chapter_status['approved'][] = $chapter_no;
+                }
+                else{
+                    if( $status == 'approved'){
+                        $chapter_status[$chapter_no] = $status;
+                        $chapter_status['approved'][] = $chapter_no;
+                    }
+                }
+
+                $documentations[$key]['status'] = $chapter_status[$chapter_no];
+                $documentations['progress'] = (20 * count(isset($chapter_status['approved'])?$chapter_status['approved']:[]));
+                    
+            }
+
+            
             $supervisees[] = [
                 'id' => $id,
                 'name' => $name,
                 'regno' => $regno,
                 'topic' => $topic,
                 'date' => $date,
+                'progress' => $documentations['progress'],
             ];
         }
 
@@ -132,10 +180,8 @@ class ProjectWorkSupervisionController extends Controller
         }
        
         // interactions
-        $sg_interactions = SupervisoryInteraction::where([
-            ['supervisory_group_id', $sgid],
-            ['status', 'active'],
-        ])->get()->all();
+        $sg_interactions = ($supervisoryGroup)?
+            $supervisoryGroup->supervisory_interaction->where('status', 'active')->sortByDesc('created_at'):[];
         $interactions = [];
          foreach($sg_interactions as $sg_interaction){
             $id = $sg_interaction->id;
@@ -145,7 +191,7 @@ class ProjectWorkSupervisionController extends Controller
             $isPostAuthor = $sg_interaction->isPostAuthor($user->id);
             $postAuthor = $sg_interaction->getAuthor();
             $author = $postAuthor->getFormattedName();
-            $regno = ($postAuthor->isStudent())?$postAuthor->getCapRegno():'';
+            $regno = ($postAuthor->isStudent())?$postAuthor->student->getCapRegno():'';
             $interactions[] = [
                 'id' => $id,
                 'date' => $date,
@@ -190,6 +236,56 @@ class ProjectWorkSupervisionController extends Controller
         $supervision_interaction = SupervisoryInteraction::create($validatedData);
 
         return redirect()->back()->with('success', 'Message posted successfully!');
+       
+    }
+
+    /**
+     *
+     *
+     * @return void
+     */
+    public function editInteractionMessage(Request $request)
+    {
+
+        $user = $request->user();
+
+        $validatedData = $request->validate([
+            'message_id' => 'required|numeric',
+            'content' => 'required',
+        ]);
+
+        $message_id = $validatedData['message_id'];
+        $supervision_interaction = SupervisoryInteraction::where('id', $message_id)->first();
+        $affected_rows = $supervision_interaction->update($validatedData);
+
+        if ( $affected_rows )
+            return redirect()->back()->with('success', 'Message updated successfully!');
+
+        return redirect()->back()->with('warning', 'Failed to update message!');       
+    }
+
+    /**
+     *
+     *
+     * @return void
+     */
+    public function deleteInteractionMessage(Request $request)
+    {
+
+        $user = $request->user();
+
+        $validatedData = $request->validate([
+            'message_id' => 'required|numeric',
+        ]);
+
+        $message_id = $validatedData['message_id'];
+        $supervision_interaction = SupervisoryInteraction::where('id', $message_id)->first();
+        $affected_rows = $supervision_interaction->update(['status' => 'deleted']);
+
+        if ( $affected_rows )
+            return redirect()->back()->with('success', 'Message updated successfully!');
+
+        return redirect()->back()->with('warning', 'Failed to update message!'); 
        
     }
    
@@ -366,14 +462,18 @@ class ProjectWorkSupervisionController extends Controller
 
             if( !array_key_exists($chapter_no, $chapter_status )){
                 $chapter_status[$chapter_no] = $status;
+                if( $status == 'approved')
+                    $chapter_status['approved'][] = $chapter_no;
             }
             else{
-                if( $status == 'approved')
+                if( $status == 'approved'){
                     $chapter_status[$chapter_no] = $status;
+                    $chapter_status['approved'][] = $chapter_no;
+                }
             }
 
             $documentations[$key]['status'] = $chapter_status[$chapter_no];
-            $documentations['progress'] = (20 * count($chapter_status));
+            $documentations['progress'] = (20 * count(isset($chapter_status['approved'])?$chapter_status['approved']:[]));
                 
         }
 

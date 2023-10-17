@@ -331,7 +331,7 @@ class ProjectWorkCoordinationController extends Controller
             'supervisees' => [],
             'active_supervisor' => $active_supervisor,
             'active_supervisee' => $active_supervisee,
-            'documentation' => [],
+            'documentation' => ['progress'=>0],
         ];
 
         return view('lecturer.project_coordination.supervisions', compact('data'));
@@ -410,14 +410,18 @@ class ProjectWorkCoordinationController extends Controller
 
             if( !array_key_exists($chapter_no, $chapter_status )){
                 $chapter_status[$chapter_no] = $status;
+                if( $status == 'approved')
+                    $chapter_status['approved'][] = $chapter_no;
             }
             else{
-                if( $status == 'approved')
+                if( $status == 'approved'){
                     $chapter_status[$chapter_no] = $status;
+                    $chapter_status['approved'][] = $chapter_no;
+                }
             }
 
             $documentations[$key]['status'] = $chapter_status[$chapter_no];
-            $documentations['progress'] = (20 * count($chapter_status));
+            $documentations['progress'] = (20 * count(isset($chapter_status['approved'])?$chapter_status['approved']:[]));
                 
         }
         
@@ -446,11 +450,13 @@ class ProjectWorkCoordinationController extends Controller
 
         // supervisees
         $supervisees = [];
-        foreach($thisSupervisoryGroup->supervisee as $supervisoryGroupSupervisee){
-            $id = $supervisoryGroupSupervisee->id;
-            $name = $supervisoryGroupSupervisee->getFullName();
-            $regno = $supervisoryGroupSupervisee->getCapRegno();
-            $topic = $supervisoryGroupSupervisee->getProjectTopic();
+        $this_sg_supervisees = ($thisSupervisoryGroup->supervisee)?
+            $thisSupervisoryGroup->supervisee->where('assignment_action', 'approved'):[];
+        foreach($this_sg_supervisees as $this_sg_supervisee){
+            $id = $this_sg_supervisee->id;
+            $name = $this_sg_supervisee->getFullName();
+            $regno = $this_sg_supervisee->getCapRegno();
+            $topic = $this_sg_supervisee->getProjectTopic();
             $supervisees[] = [
                 'supervisee_id' => $id,
                 'supervisee_name' => $name,
@@ -495,7 +501,7 @@ class ProjectWorkCoordinationController extends Controller
         ]);
                 
         $supervisory_group_id = $validatedData['current_supervisory_group_id'];
-        $supervisoryGroup = SupervisoryGroup::where('id', $supervisory_group_id)->first();
+        $supervisoryGroup = SupervisoryGroup::find($supervisory_group_id);
         $sg_supervisees = ($supervisoryGroup->supervisee)?
             $supervisoryGroup->supervisee->where('assignment_action', 'approved'):[];
             

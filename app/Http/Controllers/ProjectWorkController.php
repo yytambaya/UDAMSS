@@ -422,14 +422,18 @@ class ProjectWorkController extends Controller
 
             if( !array_key_exists($chapter_no, $chapter_status )){
                 $chapter_status[$chapter_no] = $status;
+                if( $status == 'approved')
+                    $chapter_status['approved'][] = $chapter_no;
             }
             else{
-                if( $status == 'approved')
+                if( $status == 'approved'){
                     $chapter_status[$chapter_no] = $status;
+                    $chapter_status['approved'][] = $chapter_no;
+                }
             }
 
             $documentations[$key]['status'] = $chapter_status[$chapter_no];
-            $documentations['progress'] = (20 * count($chapter_status));
+            $documentations['progress'] = (20 * count(isset($chapter_status['approved'])?$chapter_status['approved']:[]));
                 
         }
         

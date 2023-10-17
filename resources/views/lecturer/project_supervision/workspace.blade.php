@@ -47,7 +47,7 @@
                     </div>
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 my-3">
                         <div class="table-responsive">
-                        <table class="table table-bordered">
+                            <table class="table table-bordered">
                                 <tbody>
                                     <tr>
                                         <td class="p-2">
@@ -108,7 +108,8 @@
                                 <div class="card-header" id="headingOne1">
                                     <section class="mb-0 mt-0">
                                         <div role="menu" class="collapsed" data-toggle="collapse" data-target="#defaultAccordionOne" aria-expanded="false" aria-controls="defaultAccordionOne">
-                                            Chapter 1: Introduction  <div class="icons"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+                                            Chapter 1: Introduction @if(isset($documentation['chapter1']) && $documentation['chapter1']['status'] == 'approved')<span class="text-sm text-success ml-3"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></span>@endif
+                                            <div class="icons"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
                                         </div>
                                     </section>
                                 </div>
@@ -138,44 +139,46 @@
                                                                             <a href="">
                                                                                 <div class="badge badge-primary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg> Download</div>
                                                                             </a>
+                                                                            @if(!(isset($documentation['chapter1']) && $documentation['chapter1']['status'] == 'approved'))
                                                                             <a href="javascript:(void)" data-toggle="modal" data-target="#reviewUpload-{{$document['id']}}-Modal">
                                                                                 <div class="mx-4 mt-2 badge badge-success"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book-open">
                                                                                     <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
                                                                                     <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg> Review
                                                                                 </div>
                                                                             </a>
+                                                                            @endif
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                                <div class="modal fade" id="reviewUpload-{{$document['id']}}-Modal" tabindex="-1" role="dialog" aria-labelledby="reviewUpload-{{$document['id']}}-ModalLabel" style="display: none;" aria-hidden="true">
-                                                                    <div class="modal-dialog" role="document">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                <h5 class="modal-title" id="reviewUpload-{{$document['id']}}-ModalLabel">Document Review: Chapter {{$document['chapter_no'].'.'.$document['version']}}</h5>
-                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                                                                                </button>
-                                                                            </div>
-                                                                            <div class="modal-body">
-                                                                                <form id="review-upload-form-{{$document['id']}}" method="post" action="{{route('uploadreview.workspace.supervision.project')}}" enctype="multipart/form-data">
-                                                                                    @csrf
-                                                                                    <input type="hidden" name="document_id" value="{{$document['id']}}">
-                                                                                    <input type="hidden" name="chapter_no" value="{{$document['chapter_no']}}">
-                                                                                    <div class="form-row mb-2">
-                                                                                        <div class="form-group col-lg-12 col-md-12 col-12">
-                                                                                            <label for="reviewed-document">Reviewed Document (If any)</label>
-                                                                                            <input type="file" class="form-control-file" id="reviewed-document" name="document">
+                                                                    <div class="modal fade" id="reviewUpload-{{$document['id']}}-Modal" tabindex="-1" role="dialog" aria-labelledby="reviewUpload-{{$document['id']}}-ModalLabel" style="display: none;" aria-hidden="true">
+                                                                        <div class="modal-dialog" role="document">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h5 class="modal-title" id="reviewUpload-{{$document['id']}}-ModalLabel">Document Review: Chapter {{$document['chapter_no'].'.'.$document['version']}}</h5>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <form id="review-upload-form-{{$document['id']}}" method="post" action="{{route('uploadreview.workspace.supervision.project')}}" enctype="multipart/form-data">
+                                                                                        @csrf
+                                                                                        <input type="hidden" name="document_id" value="{{$document['id']}}">
+                                                                                        <input type="hidden" name="chapter_no" value="{{$document['chapter_no']}}">
+                                                                                        <div class="form-row mb-2">
+                                                                                            <div class="form-group col-lg-12 col-md-12 col-12">
+                                                                                                <label for="reviewed-document">Reviewed Document (If any)</label>
+                                                                                                <input type="file" class="form-control-file" id="reviewed-document" name="document">
+                                                                                            </div>
+                                                                                            <div class="form-group col-lg-12 col-md-12 col-12">
+                                                                                                <label for="review-comment">Review Comment</label>
+                                                                                                <textarea rows="5" class="form-control" id="review-comment" name="comment"></textarea>
+                                                                                            </div>
                                                                                         </div>
-                                                                                        <div class="form-group col-lg-12 col-md-12 col-12">
-                                                                                            <label for="review-comment">Review Comment</label>
-                                                                                            <textarea rows="5" class="form-control" id="review-comment" name="comment"></textarea>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </form>
-                                                                            </div>
-                                                                            <div class="modal-footer d-flex justify-content-between">
-                                                                                <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Discard</button>
-                                                                                <button form="review-upload-form-{{$document['id']}}" type="submit" class="btn btn-primary">Review</button>
+                                                                                    </form>
+                                                                                </div>
+                                                                                <div class="modal-footer d-flex justify-content-between">
+                                                                                    <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Discard</button>
+                                                                                    <button form="review-upload-form-{{$document['id']}}" type="submit" class="btn btn-primary">Review</button>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -202,7 +205,7 @@
                                                                             <h5>Chapter {{$document['chapter_no'].'.'.$document['version']}}</h5>
                                                                             <span class="">{{$document['date']}}</span>
                                                                         </div>
-                                                                        <p>{{ucfirst($document['comment'])}}</a></p>
+                                                                        <p>{{ucfirst($document['comment'])}}<a class="ml-2 text-sm"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></a></p>
                                                                         <div class="tags">
                                                                             <a href="">
                                                                                 <div class="badge badge-primary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg> Download</div>
@@ -217,15 +220,17 @@
                                                         @endif
                                                     </div>
                                                     
-                                                    <div class="mt-5">
-                                                        @if(isset($documentation['chapter1']) && $documentation['chapter1']['status'] == 'unapproved')
+                                                    <div class="mt-5 d-flex justify-content-center">
+                                                        @if(isset($documentation['chapter1']) && $documentation['chapter1']['status'] == 'approved')
+                                                        <h4 class="badge badge-success">You have approved this chapter</h4>
+                                                        @elseif(isset($documentation['chapter1']) && $documentation['chapter1']['status'] == 'unapproved')
                                                         @php($document = $documentation['chapter1']['documents'][0]);
                                                         <button  type="button" class="btn btn-primary mb-0" data-toggle="modal" data-target="#ch{{$document['chapter_no']}}-confirmApproveUploadModal">Approve Chapter</button>
                                                         <div class="modal fade" id="ch{{$document['chapter_no']}}-confirmApproveUploadModal" tabindex="-1" role="dialog" aria-labelledby="ch{{$document['chapter_no']}}-confirmApproveUploadModalLabel" style="display: none;" aria-hidden="true">
                                                             <div class="modal-dialog" role="document">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
-                                                                        <h5 class="modal-title" id="ch{{$document['chapter_no']}}-confirmApproveUploadModalLabel">Confirm Upload Approval</h5>
+                                                                        <h5 class="modal-title" id="ch{{$document['chapter_no']}}-confirmApproveUploadModalLabel">Confirm Chapter Approval</h5>
                                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                         <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                                                                         </button>
@@ -247,8 +252,6 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        @else
-                                                        <h4 class="text-success">You have approved this chapter</h4>
                                                         @endif
                                                     </div>
                                                 </div>
@@ -261,12 +264,13 @@
                                 <div class="card-header" id="headingTwo1">
                                     <section class="mb-0 mt-0">
                                     <div role="menu" class="collapsed" data-toggle="collapse" data-target="#defaultAccordionTwo" aria-expanded="false" aria-controls="defaultAccordionTwo">
-                                    Chapter 2: Literature Review   <div class="icons"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+                                    Chapter 2: Literature Review @if(isset($documentation['chapter2']) && $documentation['chapter2']['status'] == 'approved')<span class="text-sm text-success ml-3"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></span>@endif
+                                    <div class="icons"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
                                     </div>
                                     </section>
                                 </div>
                                 <div id="defaultAccordionTwo" class="collapse" aria-labelledby="headingTwo1" data-parent="#toggleAccordion" style="">
-                                <div class="card-body p-0">
+                                    <div class="card-body p-0">
                                         <div class="widget-activity-three">
                                             <div class="widget-content py-4 px-0">
                                                 <div class="mt-container mx-auto">
@@ -290,44 +294,46 @@
                                                                             <a href="">
                                                                                 <div class="badge badge-primary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg> Download</div>
                                                                             </a>
+                                                                            @if(!(isset($documentation['chapter2']) && $documentation['chapter2']['status'] == 'approved'))
                                                                             <a href="javascript:(void)" data-toggle="modal" data-target="#reviewUpload-{{$document['id']}}-Modal">
                                                                                 <div class="mx-4 mt-2 badge badge-success"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book-open">
                                                                                     <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
                                                                                     <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg> Review
                                                                                 </div>
                                                                             </a>
+                                                                            @endif
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                                <div class="modal fade" id="reviewUpload-{{$document['id']}}-Modal" tabindex="-1" role="dialog" aria-labelledby="reviewUpload-{{$document['id']}}-ModalLabel" style="display: none;" aria-hidden="true">
-                                                                    <div class="modal-dialog" role="document">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                <h5 class="modal-title" id="reviewUpload-{{$document['id']}}-ModalLabel">Document Review: Chapter {{$document['chapter_no'].'.'.$document['version']}}</h5>
-                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                                                                                </button>
-                                                                            </div>
-                                                                            <div class="modal-body">
-                                                                                <form id="review-upload-form-{{$document['id']}}" method="post" action="{{route('uploadreview.workspace.supervision.project')}}" enctype="multipart/form-data">
-                                                                                    @csrf
-                                                                                    <input type="hidden" name="document_id" value="{{$document['id']}}">
-                                                                                    <input type="hidden" name="chapter_no" value="{{$document['chapter_no']}}">
-                                                                                    <div class="form-row mb-2">
-                                                                                        <div class="form-group col-lg-12 col-md-12 col-12">
-                                                                                            <label for="reviewed-document">Reviewed Document (If any)</label>
-                                                                                            <input type="file" class="form-control-file" id="reviewed-document" name="document">
+                                                                    <div class="modal fade" id="reviewUpload-{{$document['id']}}-Modal" tabindex="-1" role="dialog" aria-labelledby="reviewUpload-{{$document['id']}}-ModalLabel" style="display: none;" aria-hidden="true">
+                                                                        <div class="modal-dialog" role="document">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h5 class="modal-title" id="reviewUpload-{{$document['id']}}-ModalLabel">Document Review: Chapter {{$document['chapter_no'].'.'.$document['version']}}</h5>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <form id="review-upload-form-{{$document['id']}}" method="post" action="{{route('uploadreview.workspace.supervision.project')}}" enctype="multipart/form-data">
+                                                                                        @csrf
+                                                                                        <input type="hidden" name="document_id" value="{{$document['id']}}">
+                                                                                        <input type="hidden" name="chapter_no" value="{{$document['chapter_no']}}">
+                                                                                        <div class="form-row mb-2">
+                                                                                            <div class="form-group col-lg-12 col-md-12 col-12">
+                                                                                                <label for="reviewed-document">Reviewed Document (If any)</label>
+                                                                                                <input type="file" class="form-control-file" id="reviewed-document" name="document">
+                                                                                            </div>
+                                                                                            <div class="form-group col-lg-12 col-md-12 col-12">
+                                                                                                <label for="review-comment">Review Comment</label>
+                                                                                                <textarea rows="5" class="form-control" id="review-comment" name="comment"></textarea>
+                                                                                            </div>
                                                                                         </div>
-                                                                                        <div class="form-group col-lg-12 col-md-12 col-12">
-                                                                                            <label for="review-comment">Review Comment</label>
-                                                                                            <textarea rows="5" class="form-control" id="review-comment" name="comment"></textarea>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </form>
-                                                                            </div>
-                                                                            <div class="modal-footer d-flex justify-content-between">
-                                                                                <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Discard</button>
-                                                                                <button form="review-upload-form-{{$document['id']}}" type="submit" class="btn btn-primary">Review</button>
+                                                                                    </form>
+                                                                                </div>
+                                                                                <div class="modal-footer d-flex justify-content-between">
+                                                                                    <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Discard</button>
+                                                                                    <button form="review-upload-form-{{$document['id']}}" type="submit" class="btn btn-primary">Review</button>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -354,7 +360,7 @@
                                                                             <h5>Chapter {{$document['chapter_no'].'.'.$document['version']}}</h5>
                                                                             <span class="">{{$document['date']}}</span>
                                                                         </div>
-                                                                        <p>{{ucfirst($document['comment'])}}</a></p>
+                                                                        <p>{{ucfirst($document['comment'])}}<a class="ml-2 text-sm"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></a></p>
                                                                         <div class="tags">
                                                                             <a href="">
                                                                                 <div class="badge badge-primary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg> Download</div>
@@ -369,15 +375,17 @@
                                                         @endif
                                                     </div>
                                                     
-                                                    <div class="mt-5">
-                                                        @if(isset($documentation['chapter2']) && $documentation['chapter2']['status'] == 'unapproved')
+                                                    <div class="mt-5 d-flex justify-content-center">
+                                                        @if(isset($documentation['chapter2']) && $documentation['chapter2']['status'] == 'approved')
+                                                        <h4 class="badge badge-success">You have approved this chapter</h4>
+                                                        @elseif(isset($documentation['chapter2']) && $documentation['chapter2']['status'] == 'unapproved')
                                                         @php($document = $documentation['chapter2']['documents'][0]);
                                                         <button  type="button" class="btn btn-primary mb-0" data-toggle="modal" data-target="#ch{{$document['chapter_no']}}-confirmApproveUploadModal">Approve Chapter</button>
                                                         <div class="modal fade" id="ch{{$document['chapter_no']}}-confirmApproveUploadModal" tabindex="-1" role="dialog" aria-labelledby="ch{{$document['chapter_no']}}-confirmApproveUploadModalLabel" style="display: none;" aria-hidden="true">
                                                             <div class="modal-dialog" role="document">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
-                                                                        <h5 class="modal-title" id="ch{{$document['chapter_no']}}-confirmApproveUploadModalLabel">Confirm Upload Approval</h5>
+                                                                        <h5 class="modal-title" id="ch{{$document['chapter_no']}}-confirmApproveUploadModalLabel">Confirm Chapter Approval</h5>
                                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                         <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                                                                         </button>
@@ -399,8 +407,6 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        @else
-                                                        <h4 class="text-success">You have approved this chapter</h4>
                                                         @endif
                                                     </div>
                                                 </div>
@@ -413,7 +419,8 @@
                                 <div class="card-header" id="headingThree1">
                                     <section class="mb-0 mt-0">
                                     <div role="menu" class="collapsed" data-toggle="collapse" data-target="#defaultAccordionThree" aria-expanded="false" aria-controls="defaultAccordionThree">
-                                    Chapter 3: Methodology  <div class="icons"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+                                        Chapter 3: Methodology @if(isset($documentation['chapter3']) && $documentation['chapter3']['status'] == 'approved')<span class="text-sm text-success ml-3"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></span>@endif
+                                        <div class="icons"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
                                     </div>
                                     </section>
                                 </div>
@@ -442,44 +449,46 @@
                                                                             <a href="">
                                                                                 <div class="badge badge-primary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg> Download</div>
                                                                             </a>
+                                                                            @if(!(isset($documentation['chapter3']) && $documentation['chapter3']['status'] == 'approved'))
                                                                             <a href="javascript:(void)" data-toggle="modal" data-target="#reviewUpload-{{$document['id']}}-Modal">
                                                                                 <div class="mx-4 mt-2 badge badge-success"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book-open">
                                                                                     <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
                                                                                     <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg> Review
                                                                                 </div>
                                                                             </a>
+                                                                            @endif
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                                <div class="modal fade" id="reviewUpload-{{$document['id']}}-Modal" tabindex="-1" role="dialog" aria-labelledby="reviewUpload-{{$document['id']}}-ModalLabel" style="display: none;" aria-hidden="true">
-                                                                    <div class="modal-dialog" role="document">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                <h5 class="modal-title" id="reviewUpload-{{$document['id']}}-ModalLabel">Document Review: Chapter {{$document['chapter_no'].'.'.$document['version']}}</h5>
-                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                                                                                </button>
-                                                                            </div>
-                                                                            <div class="modal-body">
-                                                                                <form id="review-upload-form-{{$document['id']}}" method="post" action="{{route('uploadreview.workspace.supervision.project')}}" enctype="multipart/form-data">
-                                                                                    @csrf
-                                                                                    <input type="hidden" name="document_id" value="{{$document['id']}}">
-                                                                                    <input type="hidden" name="chapter_no" value="{{$document['chapter_no']}}">
-                                                                                    <div class="form-row mb-2">
-                                                                                        <div class="form-group col-lg-12 col-md-12 col-12">
-                                                                                            <label for="reviewed-document">Reviewed Document (If any)</label>
-                                                                                            <input type="file" class="form-control-file" id="reviewed-document" name="document">
+                                                                    <div class="modal fade" id="reviewUpload-{{$document['id']}}-Modal" tabindex="-1" role="dialog" aria-labelledby="reviewUpload-{{$document['id']}}-ModalLabel" style="display: none;" aria-hidden="true">
+                                                                        <div class="modal-dialog" role="document">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h5 class="modal-title" id="reviewUpload-{{$document['id']}}-ModalLabel">Document Review: Chapter {{$document['chapter_no'].'.'.$document['version']}}</h5>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <form id="review-upload-form-{{$document['id']}}" method="post" action="{{route('uploadreview.workspace.supervision.project')}}" enctype="multipart/form-data">
+                                                                                        @csrf
+                                                                                        <input type="hidden" name="document_id" value="{{$document['id']}}">
+                                                                                        <input type="hidden" name="chapter_no" value="{{$document['chapter_no']}}">
+                                                                                        <div class="form-row mb-2">
+                                                                                            <div class="form-group col-lg-12 col-md-12 col-12">
+                                                                                                <label for="reviewed-document">Reviewed Document (If any)</label>
+                                                                                                <input type="file" class="form-control-file" id="reviewed-document" name="document">
+                                                                                            </div>
+                                                                                            <div class="form-group col-lg-12 col-md-12 col-12">
+                                                                                                <label for="review-comment">Review Comment</label>
+                                                                                                <textarea rows="5" class="form-control" id="review-comment" name="comment"></textarea>
+                                                                                            </div>
                                                                                         </div>
-                                                                                        <div class="form-group col-lg-12 col-md-12 col-12">
-                                                                                            <label for="review-comment">Review Comment</label>
-                                                                                            <textarea rows="5" class="form-control" id="review-comment" name="comment"></textarea>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </form>
-                                                                            </div>
-                                                                            <div class="modal-footer d-flex justify-content-between">
-                                                                                <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Discard</button>
-                                                                                <button form="review-upload-form-{{$document['id']}}" type="submit" class="btn btn-primary">Review</button>
+                                                                                    </form>
+                                                                                </div>
+                                                                                <div class="modal-footer d-flex justify-content-between">
+                                                                                    <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Discard</button>
+                                                                                    <button form="review-upload-form-{{$document['id']}}" type="submit" class="btn btn-primary">Review</button>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -506,7 +515,7 @@
                                                                             <h5>Chapter {{$document['chapter_no'].'.'.$document['version']}}</h5>
                                                                             <span class="">{{$document['date']}}</span>
                                                                         </div>
-                                                                        <p>{{ucfirst($document['comment'])}}</a></p>
+                                                                        <p>{{ucfirst($document['comment'])}}<a class="ml-2 text-sm"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></a></p>
                                                                         <div class="tags">
                                                                             <a href="">
                                                                                 <div class="badge badge-primary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg> Download</div>
@@ -521,15 +530,17 @@
                                                         @endif
                                                     </div>
                                                     
-                                                    <div class="mt-5">
-                                                        @if(isset($documentation['chapter3']) && $documentation['chapter3']['status'] == 'unapproved')
+                                                    <div class="mt-5 d-flex justify-content-center">
+                                                        @if(isset($documentation['chapter3']) && $documentation['chapter3']['status'] == 'approved')
+                                                        <h4 class="badge badge-success">You have approved this chapter</h4>
+                                                        @elseif(isset($documentation['chapter3']) && $documentation['chapter3']['status'] == 'unapproved')
                                                         @php($document = $documentation['chapter3']['documents'][0]);
                                                         <button  type="button" class="btn btn-primary mb-0" data-toggle="modal" data-target="#ch{{$document['chapter_no']}}-confirmApproveUploadModal">Approve Chapter</button>
                                                         <div class="modal fade" id="ch{{$document['chapter_no']}}-confirmApproveUploadModal" tabindex="-1" role="dialog" aria-labelledby="ch{{$document['chapter_no']}}-confirmApproveUploadModalLabel" style="display: none;" aria-hidden="true">
                                                             <div class="modal-dialog" role="document">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
-                                                                        <h5 class="modal-title" id="ch{{$document['chapter_no']}}-confirmApproveUploadModalLabel">Confirm Upload Approval</h5>
+                                                                        <h5 class="modal-title" id="ch{{$document['chapter_no']}}-confirmApproveUploadModalLabel">Confirm Chapter Approval</h5>
                                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                         <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                                                                         </button>
@@ -551,8 +562,6 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        @else
-                                                        <h4 class="text-success">You have approved this chapter</h4>
                                                         @endif
                                                     </div>
                                                 </div>
@@ -565,7 +574,8 @@
                                 <div class="card-header" id="headingFour1">
                                     <section class="mb-0 mt-0">
                                     <div role="menu" class="collapsed" data-toggle="collapse" data-target="#defaultAccordionFour" aria-expanded="false" aria-controls="defaultAccordionFour">
-                                    Chapter 4: Implementation and Discussion of Result  <div class="icons"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+                                        Chapter 4: Implementation and Discussion of Result @if(isset($documentation['chapter4']) && $documentation['chapter4']['status'] == 'approved')<span class="text-sm text-success ml-3"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></span>@endif
+                                        <div class="icons"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
                                     </div>
                                     </section>
                                 </div>
@@ -594,44 +604,46 @@
                                                                             <a href="">
                                                                                 <div class="badge badge-primary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg> Download</div>
                                                                             </a>
+                                                                            @if(!(isset($documentation['chapter4']) && $documentation['chapter4']['status'] == 'approved'))
                                                                             <a href="javascript:(void)" data-toggle="modal" data-target="#reviewUpload-{{$document['id']}}-Modal">
                                                                                 <div class="mx-4 mt-2 badge badge-success"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book-open">
                                                                                     <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
                                                                                     <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg> Review
                                                                                 </div>
                                                                             </a>
+                                                                            @endif
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                                <div class="modal fade" id="reviewUpload-{{$document['id']}}-Modal" tabindex="-1" role="dialog" aria-labelledby="reviewUpload-{{$document['id']}}-ModalLabel" style="display: none;" aria-hidden="true">
-                                                                    <div class="modal-dialog" role="document">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                <h5 class="modal-title" id="reviewUpload-{{$document['id']}}-ModalLabel">Document Review: Chapter {{$document['chapter_no'].'.'.$document['version']}}</h5>
-                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                                                                                </button>
-                                                                            </div>
-                                                                            <div class="modal-body">
-                                                                                <form id="review-upload-form-{{$document['id']}}" method="post" action="{{route('uploadreview.workspace.supervision.project')}}" enctype="multipart/form-data">
-                                                                                    @csrf
-                                                                                    <input type="hidden" name="document_id" value="{{$document['id']}}">
-                                                                                    <input type="hidden" name="chapter_no" value="{{$document['chapter_no']}}">
-                                                                                    <div class="form-row mb-2">
-                                                                                        <div class="form-group col-lg-12 col-md-12 col-12">
-                                                                                            <label for="reviewed-document">Reviewed Document (If any)</label>
-                                                                                            <input type="file" class="form-control-file" id="reviewed-document" name="document">
+                                                                    <div class="modal fade" id="reviewUpload-{{$document['id']}}-Modal" tabindex="-1" role="dialog" aria-labelledby="reviewUpload-{{$document['id']}}-ModalLabel" style="display: none;" aria-hidden="true">
+                                                                        <div class="modal-dialog" role="document">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h5 class="modal-title" id="reviewUpload-{{$document['id']}}-ModalLabel">Document Review: Chapter {{$document['chapter_no'].'.'.$document['version']}}</h5>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <form id="review-upload-form-{{$document['id']}}" method="post" action="{{route('uploadreview.workspace.supervision.project')}}" enctype="multipart/form-data">
+                                                                                        @csrf
+                                                                                        <input type="hidden" name="document_id" value="{{$document['id']}}">
+                                                                                        <input type="hidden" name="chapter_no" value="{{$document['chapter_no']}}">
+                                                                                        <div class="form-row mb-2">
+                                                                                            <div class="form-group col-lg-12 col-md-12 col-12">
+                                                                                                <label for="reviewed-document">Reviewed Document (If any)</label>
+                                                                                                <input type="file" class="form-control-file" id="reviewed-document" name="document">
+                                                                                            </div>
+                                                                                            <div class="form-group col-lg-12 col-md-12 col-12">
+                                                                                                <label for="review-comment">Review Comment</label>
+                                                                                                <textarea rows="5" class="form-control" id="review-comment" name="comment"></textarea>
+                                                                                            </div>
                                                                                         </div>
-                                                                                        <div class="form-group col-lg-12 col-md-12 col-12">
-                                                                                            <label for="review-comment">Review Comment</label>
-                                                                                            <textarea rows="5" class="form-control" id="review-comment" name="comment"></textarea>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </form>
-                                                                            </div>
-                                                                            <div class="modal-footer d-flex justify-content-between">
-                                                                                <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Discard</button>
-                                                                                <button form="review-upload-form-{{$document['id']}}" type="submit" class="btn btn-primary">Review</button>
+                                                                                    </form>
+                                                                                </div>
+                                                                                <div class="modal-footer d-flex justify-content-between">
+                                                                                    <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Discard</button>
+                                                                                    <button form="review-upload-form-{{$document['id']}}" type="submit" class="btn btn-primary">Review</button>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -658,7 +670,7 @@
                                                                             <h5>Chapter {{$document['chapter_no'].'.'.$document['version']}}</h5>
                                                                             <span class="">{{$document['date']}}</span>
                                                                         </div>
-                                                                        <p>{{ucfirst($document['comment'])}}</a></p>
+                                                                        <p>{{ucfirst($document['comment'])}}<a class="ml-2 text-sm"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></a></p>
                                                                         <div class="tags">
                                                                             <a href="">
                                                                                 <div class="badge badge-primary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg> Download</div>
@@ -673,15 +685,17 @@
                                                         @endif
                                                     </div>
                                                     
-                                                    <div class="mt-5">
-                                                        @if(isset($documentation['chapter4']) && $documentation['chapter4']['status'] == 'unapproved')
+                                                    <div class="mt-5 d-flex justify-content-center">
+                                                        @if(isset($documentation['chapter4']) && $documentation['chapter4']['status'] == 'approved')
+                                                        <h4 class="badge badge-success">You have approved this chapter</h4>
+                                                        @elseif(isset($documentation['chapter4']) && $documentation['chapter4']['status'] == 'unapproved')
                                                         @php($document = $documentation['chapter4']['documents'][0]);
                                                         <button  type="button" class="btn btn-primary mb-0" data-toggle="modal" data-target="#ch{{$document['chapter_no']}}-confirmApproveUploadModal">Approve Chapter</button>
                                                         <div class="modal fade" id="ch{{$document['chapter_no']}}-confirmApproveUploadModal" tabindex="-1" role="dialog" aria-labelledby="ch{{$document['chapter_no']}}-confirmApproveUploadModalLabel" style="display: none;" aria-hidden="true">
                                                             <div class="modal-dialog" role="document">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
-                                                                        <h5 class="modal-title" id="ch{{$document['chapter_no']}}-confirmApproveUploadModalLabel">Confirm Upload Approval</h5>
+                                                                        <h5 class="modal-title" id="ch{{$document['chapter_no']}}-confirmApproveUploadModalLabel">Confirm Chapter Approval</h5>
                                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                         <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                                                                         </button>
@@ -703,8 +717,6 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        @else
-                                                        <h4 class="text-success">You have approved this chapter</h4>
                                                         @endif
                                                     </div>
                                                 </div>
@@ -717,7 +729,8 @@
                                 <div class="card-header" id="headingFive1">
                                     <section class="mb-0 mt-0">
                                     <div role="menu" class="collapsed" data-toggle="collapse" data-target="#defaultAccordionFive" aria-expanded="false" aria-controls="defaultAccordionFive">
-                                    Chapter 5: Summary, Conclusion and Recommendations  <div class="icons"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+                                        Chapter 5: Summary, Conclusion and Recommendations @if(isset($documentation['chapter5']) && $documentation['chapter5']['status'] == 'approved')<span class="text-sm text-success ml-3"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></span>@endif
+                                        <div class="icons"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
                                     </div>
                                     </section>
                                 </div>
@@ -746,44 +759,46 @@
                                                                             <a href="">
                                                                                 <div class="badge badge-primary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg> Download</div>
                                                                             </a>
+                                                                            @if(!(isset($documentation['chapter5']) && $documentation['chapter5']['status'] == 'approved'))
                                                                             <a href="javascript:(void)" data-toggle="modal" data-target="#reviewUpload-{{$document['id']}}-Modal">
                                                                                 <div class="mx-4 mt-2 badge badge-success"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book-open">
                                                                                     <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
                                                                                     <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg> Review
                                                                                 </div>
                                                                             </a>
+                                                                            @endif
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                                <div class="modal fade" id="reviewUpload-{{$document['id']}}-Modal" tabindex="-1" role="dialog" aria-labelledby="reviewUpload-{{$document['id']}}-ModalLabel" style="display: none;" aria-hidden="true">
-                                                                    <div class="modal-dialog" role="document">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                <h5 class="modal-title" id="reviewUpload-{{$document['id']}}-ModalLabel">Document Review: Chapter {{$document['chapter_no'].'.'.$document['version']}}</h5>
-                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                                                                                </button>
-                                                                            </div>
-                                                                            <div class="modal-body">
-                                                                                <form id="review-upload-form-{{$document['id']}}" method="post" action="{{route('uploadreview.workspace.supervision.project')}}" enctype="multipart/form-data">
-                                                                                    @csrf
-                                                                                    <input type="hidden" name="document_id" value="{{$document['id']}}">
-                                                                                    <input type="hidden" name="chapter_no" value="{{$document['chapter_no']}}">
-                                                                                    <div class="form-row mb-2">
-                                                                                        <div class="form-group col-lg-12 col-md-12 col-12">
-                                                                                            <label for="reviewed-document">Reviewed Document (If any)</label>
-                                                                                            <input type="file" class="form-control-file" id="reviewed-document" name="document">
+                                                                    <div class="modal fade" id="reviewUpload-{{$document['id']}}-Modal" tabindex="-1" role="dialog" aria-labelledby="reviewUpload-{{$document['id']}}-ModalLabel" style="display: none;" aria-hidden="true">
+                                                                        <div class="modal-dialog" role="document">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h5 class="modal-title" id="reviewUpload-{{$document['id']}}-ModalLabel">Document Review: Chapter {{$document['chapter_no'].'.'.$document['version']}}</h5>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <form id="review-upload-form-{{$document['id']}}" method="post" action="{{route('uploadreview.workspace.supervision.project')}}" enctype="multipart/form-data">
+                                                                                        @csrf
+                                                                                        <input type="hidden" name="document_id" value="{{$document['id']}}">
+                                                                                        <input type="hidden" name="chapter_no" value="{{$document['chapter_no']}}">
+                                                                                        <div class="form-row mb-2">
+                                                                                            <div class="form-group col-lg-12 col-md-12 col-12">
+                                                                                                <label for="reviewed-document">Reviewed Document (If any)</label>
+                                                                                                <input type="file" class="form-control-file" id="reviewed-document" name="document">
+                                                                                            </div>
+                                                                                            <div class="form-group col-lg-12 col-md-12 col-12">
+                                                                                                <label for="review-comment">Review Comment</label>
+                                                                                                <textarea rows="5" class="form-control" id="review-comment" name="comment"></textarea>
+                                                                                            </div>
                                                                                         </div>
-                                                                                        <div class="form-group col-lg-12 col-md-12 col-12">
-                                                                                            <label for="review-comment">Review Comment</label>
-                                                                                            <textarea rows="5" class="form-control" id="review-comment" name="comment"></textarea>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </form>
-                                                                            </div>
-                                                                            <div class="modal-footer d-flex justify-content-between">
-                                                                                <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Discard</button>
-                                                                                <button form="review-upload-form-{{$document['id']}}" type="submit" class="btn btn-primary">Review</button>
+                                                                                    </form>
+                                                                                </div>
+                                                                                <div class="modal-footer d-flex justify-content-between">
+                                                                                    <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Discard</button>
+                                                                                    <button form="review-upload-form-{{$document['id']}}" type="submit" class="btn btn-primary">Review</button>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -810,7 +825,7 @@
                                                                             <h5>Chapter {{$document['chapter_no'].'.'.$document['version']}}</h5>
                                                                             <span class="">{{$document['date']}}</span>
                                                                         </div>
-                                                                        <p>{{ucfirst($document['comment'])}}</a></p>
+                                                                        <p>{{ucfirst($document['comment'])}}<a class="ml-2 text-sm"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></a></p>
                                                                         <div class="tags">
                                                                             <a href="">
                                                                                 <div class="badge badge-primary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg> Download</div>
@@ -825,15 +840,17 @@
                                                         @endif
                                                     </div>
                                                     
-                                                    <div class="mt-5">
-                                                        @if(isset($documentation['chapter5']) && $documentation['chapter5']['status'] == 'unapproved')
+                                                    <div class="mt-5 d-flex justify-content-center">
+                                                        @if(isset($documentation['chapter5']) && $documentation['chapter5']['status'] == 'approved')
+                                                        <h4 class="badge badge-success">You have approved this chapter</h4>
+                                                        @elseif(isset($documentation['chapter5']) && $documentation['chapter5']['status'] == 'unapproved')
                                                         @php($document = $documentation['chapter5']['documents'][0]);
                                                         <button  type="button" class="btn btn-primary mb-0" data-toggle="modal" data-target="#ch{{$document['chapter_no']}}-confirmApproveUploadModal">Approve Chapter</button>
                                                         <div class="modal fade" id="ch{{$document['chapter_no']}}-confirmApproveUploadModal" tabindex="-1" role="dialog" aria-labelledby="ch{{$document['chapter_no']}}-confirmApproveUploadModalLabel" style="display: none;" aria-hidden="true">
                                                             <div class="modal-dialog" role="document">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
-                                                                        <h5 class="modal-title" id="ch{{$document['chapter_no']}}-confirmApproveUploadModalLabel">Confirm Upload Approval</h5>
+                                                                        <h5 class="modal-title" id="ch{{$document['chapter_no']}}-confirmApproveUploadModalLabel">Confirm Chapter Approval</h5>
                                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                         <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                                                                         </button>
@@ -855,8 +872,6 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        @else
-                                                        <h4 class="text-success">You have approved this chapter</h4>
                                                         @endif
                                                     </div>
                                                 </div>

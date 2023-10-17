@@ -127,12 +127,13 @@
                         <h3 class="">Documentation Review</h3>
                     </div>
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-5 p-0">
-                        <div id="toggleAccordion">
+                    <div id="toggleAccordion">
                             <div class="card">
                                 <div class="card-header" id="headingOne1">
                                     <section class="mb-0 mt-0">
                                         <div role="menu" class="collapsed" data-toggle="collapse" data-target="#defaultAccordionOne" aria-expanded="false" aria-controls="defaultAccordionOne">
-                                            Chapter 1: Introduction  <div class="icons"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+                                                Chapter 1: Introduction  @if(isset($documentation['chapter1']) && $documentation['chapter1']['status'] == 'approved')<span class="text-sm text-success ml-3"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></span>@endif
+                                                <div class="icons"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
                                         </div>
                                     </section>
                                 </div>
@@ -157,16 +158,13 @@
                                                                             <h5>Chapter {{$document['chapter_no'].'.'.$document['version']}}</h5>
                                                                             <span class="">{{$document['date']}}</span>
                                                                         </div>
-                                                                        <p>{{ucfirst($document['comment'])}}</a></p>
+                                                                        <p>{{ucfirst($document['comment'])}}</p>
                                                                         <div class="tags">
-                                                                            <a href="" target="_blank">
-                                                                                <div class="badge badge-success"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book-open">
-                                                                                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-                                                                                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
-                                                                                </div>
-                                                                            </a>
                                                                             <a href="">
-                                                                                <div class="badge badge-primary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg></div>
+                                                                                <div class="badge badge-primary">
+                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                                                                                    &nbsp;&nbsp;Download
+                                                                                </div>
                                                                             </a>
                                                                         </div>
                                                                     </div>
@@ -193,16 +191,13 @@
                                                                             <h5>Chapter {{$document['chapter_no'].'.'.$document['version']}}</h5>
                                                                             <span class="">{{$document['date']}}</span>
                                                                         </div>
-                                                                        <p>{{ucfirst($document['comment'])}}</a></p>
+                                                                        <p>{{ucfirst($document['comment'])}}</p>
                                                                         <div class="tags">
-                                                                            <a href="" target="_blank">
-                                                                                <div class="badge badge-success"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book-open">
-                                                                                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-                                                                                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
-                                                                                </div>
-                                                                            </a>
                                                                             <a href="">
-                                                                                <div class="badge badge-primary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg></div>
+                                                                                <div class="badge badge-primary">
+                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                                                                                    &nbsp;&nbsp;Download
+                                                                                </div>
                                                                             </a>
                                                                         </div>
                                                                     </div>
@@ -211,6 +206,12 @@
                                                             @endforeach
                                                         @else
                                                         <p class="p-3 text-danger">No uploads yet</p>
+                                                        @endif
+                                                    </div>
+                                                    
+                                                    <div class="mt-5 d-flex justify-content-center">
+                                                        @if(isset($documentation['chapter1']) && $documentation['chapter1']['status'] == 'approved')
+                                                        <h4 class="badge badge-success">Chapter Approved</h4>
                                                         @endif
                                                     </div>
                                                 </div>
@@ -223,7 +224,8 @@
                                 <div class="card-header" id="headingTwo1">
                                     <section class="mb-0 mt-0">
                                     <div role="menu" class="collapsed" data-toggle="collapse" data-target="#defaultAccordionTwo" aria-expanded="false" aria-controls="defaultAccordionTwo">
-                                    Chapter 2: Literature Review   <div class="icons"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+                                        Chapter 2: Literature Review   @if(isset($documentation['chapter2']) && $documentation['chapter2']['status'] == 'approved')<span class="text-sm text-success ml-3"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></span>@endif
+                                        <div class="icons"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
                                     </div>
                                     </section>
                                 </div>
@@ -247,16 +249,13 @@
                                                                             <h5>Chapter {{$document['chapter_no'].'.'.$document['version']}}</h5>
                                                                             <span class="">{{$document['date']}}</span>
                                                                         </div>
-                                                                        <p>{{ucfirst($document['comment'])}}</a></p>
+                                                                        <p>{{ucfirst($document['comment'])}}</p>
                                                                         <div class="tags">
-                                                                            <a href="" target="_blank">
-                                                                                <div class="badge badge-success"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book-open">
-                                                                                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-                                                                                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
-                                                                                </div>
-                                                                            </a>
                                                                             <a href="">
-                                                                                <div class="badge badge-primary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg></div>
+                                                                                <div class="badge badge-primary">
+                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                                                                                    &nbsp;&nbsp;Download
+                                                                                </div>
                                                                             </a>
                                                                         </div>
                                                                     </div>
@@ -268,7 +267,7 @@
                                                         @endif
                                                     </div>
 
-                                                    <div class="mb-3 badge badge-success">Documents Review</div>
+                                                    <div class="mb-3 badge badge-danger">Documents Review</div>
 
                                                     <div class="timeline-line mb-3">
                                                         @if(isset($documentation['chapter2']))
@@ -283,16 +282,13 @@
                                                                             <h5>Chapter {{$document['chapter_no'].'.'.$document['version']}}</h5>
                                                                             <span class="">{{$document['date']}}</span>
                                                                         </div>
-                                                                        <p>{{ucfirst($document['comment'])}}</a></p>
+                                                                        <p>{{ucfirst($document['comment'])}}</p>
                                                                         <div class="tags">
-                                                                            <a href="" target="_blank">
-                                                                                <div class="badge badge-success"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book-open">
-                                                                                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-                                                                                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
-                                                                                </div>
-                                                                            </a>
                                                                             <a href="">
-                                                                                <div class="badge badge-primary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg></div>
+                                                                                <div class="badge badge-primary">
+                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                                                                                    &nbsp;&nbsp;Download
+                                                                                </div>
                                                                             </a>
                                                                         </div>
                                                                     </div>
@@ -301,6 +297,12 @@
                                                             @endforeach
                                                         @else
                                                         <p class="p-3 text-danger">No uploads yet</p>
+                                                        @endif
+                                                    </div>
+                                                    
+                                                    <div class="mt-5 d-flex justify-content-center">
+                                                        @if(isset($documentation['chapter2']) && $documentation['chapter2']['status'] == 'approved')
+                                                        <h4 class="badge badge-success">Chapter Approved</h4>
                                                         @endif
                                                     </div>
                                                 </div>
@@ -313,7 +315,8 @@
                                 <div class="card-header" id="headingThree1">
                                     <section class="mb-0 mt-0">
                                     <div role="menu" class="collapsed" data-toggle="collapse" data-target="#defaultAccordionThree" aria-expanded="false" aria-controls="defaultAccordionThree">
-                                    Chapter 3: Methodology  <div class="icons"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+                                        Chapter 3: Methodology  @if(isset($documentation['chapter3']) && $documentation['chapter3']['status'] == 'approved')<span class="text-sm text-success ml-3"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></span>@endif
+                                        <div class="icons"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
                                     </div>
                                     </section>
                                 </div>
@@ -326,7 +329,7 @@
 
                                                     <div class="timeline-line mb-3">
                                                         @if(isset($documentation['chapter3']))
-                                                            @foreach($documentation['chapter3']['documents'] as $document)
+                                                            @forelse($documentation['chapter3']['documents'] as $document)
                                                                 @if($document['type'] == 'upload')
                                                                 <div class="item-timeline timeline-new">
                                                                     <div class="t-dot" data-original-title="" title="">
@@ -337,28 +340,27 @@
                                                                             <h5>Chapter {{$document['chapter_no'].'.'.$document['version']}}</h5>
                                                                             <span class="">{{$document['date']}}</span>
                                                                         </div>
-                                                                        <p>{{ucfirst($document['comment'])}}</a></p>
+                                                                        <p>{{ucfirst($document['comment'])}}</p>
                                                                         <div class="tags">
-                                                                            <a href="" target="_blank">
-                                                                                <div class="badge badge-success"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book-open">
-                                                                                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-                                                                                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
-                                                                                </div>
-                                                                            </a>
                                                                             <a href="">
-                                                                                <div class="badge badge-primary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg></div>
+                                                                                <div class="badge badge-primary">
+                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                                                                                    &nbsp;&nbsp;Download
+                                                                                </div>
                                                                             </a>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                @endif                    
-                                                            @endforeach
+                                                                @endif 
+                                                            @empty         
+                                                            <p class="p-3 text-danger">No uploads yet</p>
+                                                            @endforelse
                                                         @else
                                                         <p class="p-3 text-danger">No uploads yet</p>
                                                         @endif
                                                     </div>
 
-                                                    <div class="mb-3 badge badge-success">Documents Review</div>
+                                                    <div class="mb-3 badge badge-danger">Documents Review</div>
 
                                                     <div class="timeline-line mb-3">
                                                         @if(isset($documentation['chapter3']))
@@ -373,16 +375,13 @@
                                                                             <h5>Chapter {{$document['chapter_no'].'.'.$document['version']}}</h5>
                                                                             <span class="">{{$document['date']}}</span>
                                                                         </div>
-                                                                        <p>{{ucfirst($document['comment'])}}</a></p>
+                                                                        <p>{{ucfirst($document['comment'])}}</p>
                                                                         <div class="tags">
-                                                                            <a href="" target="_blank">
-                                                                                <div class="badge badge-success"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book-open">
-                                                                                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-                                                                                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
-                                                                                </div>
-                                                                            </a>
                                                                             <a href="">
-                                                                                <div class="badge badge-primary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg></div>
+                                                                                <div class="badge badge-primary">
+                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                                                                                    &nbsp;&nbsp;Download
+                                                                                </div>
                                                                             </a>
                                                                         </div>
                                                                     </div>
@@ -391,6 +390,12 @@
                                                             @endforeach
                                                         @else
                                                         <p class="p-3 text-danger">No uploads yet</p>
+                                                        @endif
+                                                    </div>
+                                                    
+                                                    <div class="mt-5 d-flex justify-content-center">
+                                                        @if(isset($documentation['chapter3']) && $documentation['chapter3']['status'] == 'approved')
+                                                        <h4 class="badge badge-success">Chapter Approved</h4>
                                                         @endif
                                                     </div>
                                                 </div>
@@ -403,7 +408,8 @@
                                 <div class="card-header" id="headingFour1">
                                     <section class="mb-0 mt-0">
                                     <div role="menu" class="collapsed" data-toggle="collapse" data-target="#defaultAccordionFour" aria-expanded="false" aria-controls="defaultAccordionFour">
-                                    Chapter 4: Implementation and Discussion of Result  <div class="icons"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+                                        Chapter 4: Implementation and Discussion of Result  @if(isset($documentation['chapter4']) && $documentation['chapter4']['status'] == 'approved')<span class="text-sm text-success ml-3"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></span>@endif
+                                        <div class="icons"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
                                     </div>
                                     </section>
                                 </div>
@@ -427,16 +433,13 @@
                                                                             <h5>Chapter {{$document['chapter_no'].'.'.$document['version']}}</h5>
                                                                             <span class="">{{$document['date']}}</span>
                                                                         </div>
-                                                                        <p>{{ucfirst($document['comment'])}}</a></p>
+                                                                        <p>{{ucfirst($document['comment'])}}</p>
                                                                         <div class="tags">
-                                                                            <a href="" target="_blank">
-                                                                                <div class="badge badge-success"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book-open">
-                                                                                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-                                                                                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
-                                                                                </div>
-                                                                            </a>
                                                                             <a href="">
-                                                                                <div class="badge badge-primary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg></div>
+                                                                                <div class="badge badge-primary">
+                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                                                                                    &nbsp;&nbsp;Download
+                                                                                </div>
                                                                             </a>
                                                                         </div>
                                                                     </div>
@@ -448,7 +451,7 @@
                                                         @endif
                                                     </div>
 
-                                                    <div class="mb-3 badge badge-success">Documents Review</div>
+                                                    <div class="mb-3 badge badge-danger">Documents Review</div>
 
                                                     <div class="timeline-line mb-3">
                                                         @if(isset($documentation['chapter4']))
@@ -463,16 +466,13 @@
                                                                             <h5>Chapter {{$document['chapter_no'].'.'.$document['version']}}</h5>
                                                                             <span class="">{{$document['date']}}</span>
                                                                         </div>
-                                                                        <p>{{ucfirst($document['comment'])}}</a></p>
+                                                                        <p>{{ucfirst($document['comment'])}}</p>
                                                                         <div class="tags">
-                                                                            <a href="" target="_blank">
-                                                                                <div class="badge badge-success"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book-open">
-                                                                                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-                                                                                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
-                                                                                </div>
-                                                                            </a>
                                                                             <a href="">
-                                                                                <div class="badge badge-primary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg></div>
+                                                                                <div class="badge badge-primary">
+                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                                                                                    &nbsp;&nbsp;Download
+                                                                                </div>
                                                                             </a>
                                                                         </div>
                                                                     </div>
@@ -481,6 +481,12 @@
                                                             @endforeach
                                                         @else
                                                         <p class="p-3 text-danger">No uploads yet</p>
+                                                        @endif
+                                                    </div>
+                                                    
+                                                    <div class="mt-5 d-flex justify-content-center">
+                                                        @if(isset($documentation['chapter4']) && $documentation['chapter4']['status'] == 'approved')
+                                                        <h4 class="badge badge-success">Chapter Approved</h4>
                                                         @endif
                                                     </div>
                                                 </div>
@@ -493,7 +499,8 @@
                                 <div class="card-header" id="headingFive1">
                                     <section class="mb-0 mt-0">
                                     <div role="menu" class="collapsed" data-toggle="collapse" data-target="#defaultAccordionFive" aria-expanded="false" aria-controls="defaultAccordionFive">
-                                    Chapter 5: Summary, Conclusion and Recommendations  <div class="icons"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+                                        Chapter 5: Summary, Conclusion and Recommendations  @if(isset($documentation['chapter5']) && $documentation['chapter5']['status'] == 'approved')<span class="text-sm text-success ml-3"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></span>@endif
+                                        <div class="icons"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
                                     </div>
                                     </section>
                                 </div>
@@ -517,16 +524,13 @@
                                                                             <h5>Chapter {{$document['chapter_no'].'.'.$document['version']}}</h5>
                                                                             <span class="">{{$document['date']}}</span>
                                                                         </div>
-                                                                        <p>{{ucfirst($document['comment'])}}</a></p>
+                                                                        <p>{{ucfirst($document['comment'])}}</p>
                                                                         <div class="tags">
-                                                                            <a href="" target="_blank">
-                                                                                <div class="badge badge-success"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book-open">
-                                                                                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-                                                                                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
-                                                                                </div>
-                                                                            </a>
                                                                             <a href="">
-                                                                                <div class="badge badge-primary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg></div>
+                                                                                <div class="badge badge-primary">
+                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                                                                                    &nbsp;&nbsp;Download
+                                                                                </div>
                                                                             </a>
                                                                         </div>
                                                                     </div>
@@ -538,7 +542,7 @@
                                                         @endif
                                                     </div>
 
-                                                    <div class="mb-3 badge badge-success">Documents Review</div>
+                                                    <div class="mb-3 badge badge-danger">Documents Review</div>
 
                                                     <div class="timeline-line mb-3">
                                                         @if(isset($documentation['chapter5']))
@@ -553,16 +557,13 @@
                                                                             <h5>Chapter {{$document['chapter_no'].'.'.$document['version']}}</h5>
                                                                             <span class="">{{$document['date']}}</span>
                                                                         </div>
-                                                                        <p>{{ucfirst($document['comment'])}}</a></p>
+                                                                        <p>{{ucfirst($document['comment'])}}</p>
                                                                         <div class="tags">
-                                                                            <a href="" target="_blank">
-                                                                                <div class="badge badge-success"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book-open">
-                                                                                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-                                                                                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
-                                                                                </div>
-                                                                            </a>
                                                                             <a href="">
-                                                                                <div class="badge badge-primary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg></div>
+                                                                                <div class="badge badge-primary">
+                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                                                                                    &nbsp;&nbsp;Download
+                                                                                </div>
                                                                             </a>
                                                                         </div>
                                                                     </div>
@@ -571,6 +572,12 @@
                                                             @endforeach
                                                         @else
                                                         <p class="p-3 text-danger">No uploads yet</p>
+                                                        @endif
+                                                    </div>
+                                                    
+                                                    <div class="mt-5 d-flex justify-content-center">
+                                                        @if(isset($documentation['chapter5']) && $documentation['chapter5']['status'] == 'approved')
+                                                        <h4 class="badge badge-success">Chapter Approved</h4>
                                                         @endif
                                                     </div>
                                                 </div>
