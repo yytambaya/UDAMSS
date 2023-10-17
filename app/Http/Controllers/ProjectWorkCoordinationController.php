@@ -16,6 +16,8 @@ use App\Models\ProposedProjectTopic;
 use App\Models\ProjectWorkActivity;
 use Illuminate\Database\Query\Builder;
 use Carbon\Carbon;
+use Closure;
+
 
 class ProjectWorkCoordinationController extends Controller
 {
@@ -28,6 +30,13 @@ class ProjectWorkCoordinationController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+
+        $this->middleware(function (Request $request, Closure $next) {
+            if( $request->user()->isProjectCoordinator() )
+                return $next($request);
+            return abort(403);
+        });
+
     }
 
     public function index(Request $request)
@@ -125,10 +134,13 @@ class ProjectWorkCoordinationController extends Controller
             $supervision_limit = $supervisoryGroup->supervision_limit;
             $supervisor = $supervisoryGroup->supervisor;
             $supervisor_name = ($supervisor)?$supervisor->getFormattedName():"NO SUPERVISOR";
+            $supervisee_count = ($supervisoryGroup->supervisee)?
+                $supervisoryGroup->supervisee->where('assignment_action', 'approved')->count():0;
             $supervisory_groups[] = [
                 'sgid' => $sgid,
                 'limit' => $supervision_limit,
                 'supervisor' => $supervisor_name,
+                'supervisee_count' => $supervisee_count,
             ];
         }
 

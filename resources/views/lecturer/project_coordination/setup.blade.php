@@ -131,16 +131,18 @@
                                         <table class="table table-bordered mb-4">
                                             <thead>
                                                 <tr>
-                                                    <th>Group #</th>
+                                                    <th>#</th>
                                                     <th>Supervisor</th>
+                                                    <th>Supervisee #</th>
                                                     <th>Limit</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 @foreach($supervisory_groups as $supervisory_group)
                                                 <tr>
-                                                    <td>{{$supervisory_group['sgid']}}</td>
+                                                    <td>{{$loop->iteration}}</td>
                                                     <td>{{$supervisory_group['supervisor']}}</td>
+                                                    <td>{{$supervisory_group['supervisee_count']}}</td>
                                                     <td>{{$supervisory_group['limit']}}</td>
                                                 </tr>
                                                 @endforeach

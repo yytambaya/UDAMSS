@@ -18,6 +18,7 @@ use App\Models\ProjectWorkActivity;
 use App\Models\ProjectDocumentation;
 use Illuminate\Database\Query\Builder;
 use Carbon\Carbon;
+use Closure;
 
 
 class ProjectWorkSupervisionController extends Controller
@@ -31,6 +32,13 @@ class ProjectWorkSupervisionController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+
+        $this->middleware(function (Request $request, Closure $next) {
+            if( $request->user()->isLecturer() )
+                return $next($request);
+            return abort(403);
+        });
+
     }
 
     /**
